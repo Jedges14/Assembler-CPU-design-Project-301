@@ -71,13 +71,18 @@ int main(int argc, char* argv[]) {
                 }
              }
             if(inData==false&&str.find(":") == str.npos){
-                
+                // add all diffrent cases, including where >16 bits and adds multiple lines to code, addi is 3
                 instruction_Line_Counter++;
-                if((split_Instruct[0]=="la"split_Instruct[0]=="beq")&&){
+                if(split_Instruct[0]=="la"&&Check16Bit(std::stoi(split_Instruct[2]))){
                     instruction_Line_Counter++;// replaces two instructs with 1
 
                 }
-                
+
+                if(split_Instruct[0]=="addi"&&Check16Bit(std::stoi(split_Instruct[3]))){
+                    instruction_Line_Counter++;// replaces 1 instructs with 3
+                    instruction_Line_Counter++;
+
+                }
             }
             if(str.find(":") == str.npos){instructions.push_back(str);}
         }
@@ -168,6 +173,10 @@ int main(int argc, char* argv[]) {
         else if (inst_type == "ori") {
             write_binary(encode_Itype(13,registers[terms[2]],registers[terms[1]],std::stoi(terms[3])),inst_outfile);
         }
+        
+        //consider changing bne and beq to only covert into 2 instructions, since we cannot check in part1 if the offset is >16 bits as we arent assured to know the label yet
+        
+        
         else if(inst_type=="beq"){
             int val=symbol_dict.at(terms[3])-(new_instruction_Line_Counter+1);
             
