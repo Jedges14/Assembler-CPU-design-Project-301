@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
     }
     //Prepare output files
     std::ofstream inst_outfile, static_outfile;
-    static_outfile.open(argv[argc - 1], std::ios::binary);
+    static_outfile.open(argv[argc - 1], std::ios::binary);// maybe error here? argc-2 would be the staticmem_outfile.bin according to above command line arguemnets
     inst_outfile.open(argv[argc - 1], std::ios::binary);
     std::vector<std::string> instructions;
 
