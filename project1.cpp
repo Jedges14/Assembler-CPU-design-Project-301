@@ -52,8 +52,9 @@ int main(int argc, char* argv[]) {
             if(str==".text"){
                 inData=False;
                 }
+            std::vector<std::string> split_Instruct=split(str,WHITESPACE+",()");
+
             if (str.find(":") != str.npos){
-                std::vector<std::string> split_Instruct=split(str,WHITESPACE+",()");
                 std::string label = split_Instruct[0];
                 label.pop_back(); 
                 if(inData){
@@ -69,7 +70,16 @@ int main(int argc, char* argv[]) {
                     symbol_dict[label]= instruction_Line_Counter;
                 }
              }
-            instructions.push_back(str); // TODO This will need to change for labels
+            if(inData==false&&str.find(":") == str.npos){
+                
+                instruction_Line_Counter++;
+                if((split_Instruct[0]=="la"split_Instruct[0]=="beq")&&){
+                    instruction_Line_Counter++;// replaces two instructs with 1
+
+                }
+                
+            }
+            if(str.find(":") == str.npos){instructions.push_back(str);}
         }
         infile.close();
     }
@@ -83,7 +93,10 @@ int main(int argc, char* argv[]) {
      * Process all instructions, output to instruction memory file
      * TODO: Almost all of this, it only works for adds
      */
+    int max_instruct_line=instructions.size();
+    int new_instruction_Line_Counter=0;
     for(std::string inst : instructions) {
+        
         std::vector<std::string> terms = split(inst, WHITESPACE+",()");
         std::string inst_type = terms[0];
         if (inst_type == "add") {
@@ -94,7 +107,22 @@ int main(int argc, char* argv[]) {
         }
 
         else if (inst_type == "addi"){
-            write_binary(encode_Itype(8,registers[terms[2]], registers[terms[1]], std::stoi(terms[3])),inst_outfile);
+
+            int imm = std::stoi(terms[3]);
+            if(imm >= -32768 && imm <= 32767){
+            write_binary(encode_Itype(8,registers[terms[2]], registers[terms[1]], imm),inst_outfile);}
+            else{
+
+                int upper = (imm >> 16) & 0xFFFF;
+                int lower = imm & 0xFFFF;
+
+                write_binary(encode_Itype(15,0,1,upper),inst_outfile);
+                write_binary(encode_Itype(13,1,1,lower),inst_outfile);
+                write_binary(encode_Rtype(0,registers[terms[2]],1, registers[terms[1]], 0, 32),inst_outfile);    
+                new_instruction_Line_Counter++;
+                new_instruction_Line_Counter++;
+                new_instruction_Line_Counter++;
+            }
         }
 
         else if(inst_type == "mult"){
@@ -140,8 +168,74 @@ int main(int argc, char* argv[]) {
         else if (inst_type == "ori") {
             write_binary(encode_Itype(13,registers[terms[2]],registers[terms[1]],std::stoi(terms[3])),inst_outfile);
         }
+        else if(inst_type=="beq"){
+            int val=symbol_dict.at(terms[3])-(new_instruction_Line_Counter+1);
+            
+            if(check16Bit(val)){
+            write_binary(encode_Itype(4,registers[terms[1]],registers[terms[2]],val),inst_outfile);
+            }
+            else{
+            write_binary(encode_Itype(5,registers[terms[1]],registers[terms[2]],1),inst_outfile);
+            write_binary(encode_Jtype(2,symbol_dict.at(terms[3])),inst_outfile);
+            new_instruction_Line_Counter++;
+                
 
 
+            }
+        }
+        else if(inst_type=="bne"){
+            int val=symbol_dict.at(terms[3])-(new_instruction_Line_Counter+1);
+            
+            if(check16Bit(val)){
+            write_binary(encode_Itype(5,registers[terms[1]],registers[terms[2]],val),inst_outfile);
+            } 
+            else{
+            write_binary(encode_Itype(4,registers[terms[1]],registers[terms[2]],1),inst_outfile);
+            write_binary(encode_Jtype(2,symbol_dict.at(terms[3])),inst_outfile);
+            new_instruction_Line_Counter++;
+
+            }
+            }
+        else if(inst_type="j"){
+            int val=symbol_dict.at(terms[1]);
+            write_binary(encode_Jtype(2,val),inst_outfile);
+        }
+        else if(inst_type="jal"){
+            int val=symbol_dict.at(terms[1]);
+            write_binary(encode_Jtype(3,val),inst_outfile);
+        }
+        else if(inst_type="jr"){
+            write_binary(encode_Rtype(0,registers[terms[1]],0,0,0,8),inst_outfile);
+        }
+        else if(inst_type="jalr"){
+            if(terms.size()>3){
+            write_binary(encode_Rtype(0,registers[terms[2]],0,registers[terms[1]],0,9),inst_outfile);}
+            else{
+                write_binary(encode_Rtype(0,registers[terms[1]],0,31,0,9),inst_outfile);}
+            }
+        else if(inst_type=="syscall"){
+            write_binary(53260,inst_outfile)
+        }
+        else if(inst_type=="la"){
+            
+            int address = symbol_dict[terms[2]];
+            if(address >= 0 && address <= 65535){
+                write_binary(encode_Itype(13,0,registers[terms[1]],address),inst_outfile);
+
+            }
+            else{
+            int upper = (address >> 16) & 0xFFFF;
+            int lower = address & 0xFFFF;
+ 
+            write_binary(encode_Itype(15,0,registers[terms[1]],upper),inst_outfile);
+            write_binary(encode_Itype(13,registers[terms[1]],registers[terms[1]],lower),inst_outfile);
+            new_instruction_Line_Counter++;
+            }
+        
+        }
+
+        }
+        new_instruction_Line_Counter++;
     }
 }
 
