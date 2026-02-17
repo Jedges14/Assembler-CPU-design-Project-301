@@ -38,7 +38,9 @@ std::vector<std::string> split(const std::string &s, const std::string &split_on
     return split_terms;
 }
 
-
+bool check16Bit(int val){
+    return val >= -32768 && val <= 32767;
+}
 //Remove all comments and leading/trailing whitespace
 std::string clean(const std::string &s)
 {

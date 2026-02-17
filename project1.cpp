@@ -9,6 +9,7 @@
 #include <sstream>
 #include <fstream>
 
+
 int main(int argc, char* argv[]) {
     if (argc < 4) // Checks that at least 3 arguments are given in command line
     {
@@ -70,16 +71,17 @@ int main(int argc, char* argv[]) {
                 if(!inData){
                     symbol_dict[label]= instruction_Line_Counter;
                 }
-            }
+             }
+            if(inData==false&&str.find(":") == str.npos){
+                
+                instruction_Line_Counter++;
+                if((split_Instruct[0]=="la" || split_Instruct[0]=="beq")){
+                    instruction_Line_Counter++;// replaces two instructs with 1
 
-            if (inData == false && str.find(":") == str.npos ){
-                if (split_Instruct[0] == "la" ){
-                    instruction_Line_Counter ++;
                 }
-                instruction_Line_Counter ++;
+                
             }
-            
-            if (str.find(":") == str.npos) {instructions.push_back(str);} // TODO This will need to change for labels
+            if(str.find(":") == str.npos){instructions.push_back(str);}
         }
         infile.close();
     }
@@ -93,9 +95,10 @@ int main(int argc, char* argv[]) {
      * Process all instructions, output to instruction memory file
      * TODO: Almost all of this, it only works for adds
      */
-    int new_instruction_Line_Counter = 0;
-    int max_ins_Line = instructions.size();
+    int max_instruct_line=instructions.size();
+    int new_instruction_Line_Counter=0;
     for(std::string inst : instructions) {
+        
         std::vector<std::string> terms = split(inst, WHITESPACE+",()");
         std::string inst_type = terms[0];
 
@@ -107,17 +110,21 @@ int main(int argc, char* argv[]) {
         }
 
         else if (inst_type == "addi"){
-            int address = std::stoi(terms[3]);
-            if (check16bits(address)){
-                write_binary(encode_Itype(8,registers[terms[2]], registers[terms[1]], std::stoi(terms[3])),inst_outfile);}
 
+            int imm = std::stoi(terms[3]);
+            if(imm >= -32768 && imm <= 32767){
+            write_binary(encode_Itype(8,registers[terms[2]], registers[terms[1]], imm),inst_outfile);}
             else{
-                uint16_t top = (address >> 16) & 0xFFFF;
-                uint16_t bot = (address) & 0xFFFF ;
-                write_binary(encode_Itype(15,0,1,top),inst_outfile); //perform a lui operation with top 16
-                write_binary(encode_Itype(13,1,1,bot),inst_outfile); //perform an ori operation with bottom 16
-                write_binary(encode_Rtype(0,registers[terms[2]], 1, registers[terms[1]], 0, 32),inst_outfile);
-                new_instruction_Line_Counter += 2;
+
+                int upper = (imm >> 16) & 0xFFFF;
+                int lower = imm & 0xFFFF;
+
+                write_binary(encode_Itype(15,0,1,upper),inst_outfile);
+                write_binary(encode_Itype(13,1,1,lower),inst_outfile);
+                write_binary(encode_Rtype(0,registers[terms[2]],1, registers[terms[1]], 0, 32),inst_outfile);    
+                new_instruction_Line_Counter++;
+                new_instruction_Line_Counter++;
+                new_instruction_Line_Counter++;
             }
         }
 
@@ -164,15 +171,16 @@ int main(int argc, char* argv[]) {
         else if (inst_type == "ori") {
             write_binary(encode_Itype(13,registers[terms[2]],registers[terms[1]],std::stoi(terms[3])),inst_outfile);
         }
-
-        else if (inst_type == "beq"){
-            int val = symbol_dict.at(terms[3]) -(instruction_Line_Counter+1);
-            if (check16bits(val)){
-                write_binary(encode_Itype(4,registers[terms[1]], registers[terms[2]], val),inst_outfile);}
-
+        
+        else if(inst_type=="beq"){
+            int val=symbol_dict.at(terms[3])-(new_instruction_Line_Counter+1);
+            
+            if(check16Bit(val)){
+            write_binary(encode_Itype(4,registers[terms[1]],registers[terms[2]],val),inst_outfile);
+            }
             else{
-                write_binary(encode_Itype(5, registers[terms[1]], registers[terms[2]],1), inst_outfile);
-                write_binary(encode_Jtype(2, symbol_dict.at(terms[3])), inst_outfile);
+                write_binary(encode_Itype(5,registers[terms[1]],registers[terms[2]],1),inst_outfile);
+                write_binary(encode_Jtype(2,symbol_dict.at(terms[3])),inst_outfile);
                 new_instruction_Line_Counter++;
             }
         }
@@ -186,7 +194,8 @@ int main(int argc, char* argv[]) {
                 write_binary(encode_Itype(4, registers[terms[1]], registers[terms[2]],1), inst_outfile);
                 write_binary(encode_Jtype(2, symbol_dict.at(terms[3])), inst_outfile);
                 new_instruction_Line_Counter++;
-            }        }
+            }        
+        }
 
         else if(inst_type == "j"){
             write_binary(encode_Jtype(2, symbol_dict.at(terms[1])), inst_outfile);
@@ -206,8 +215,8 @@ int main(int argc, char* argv[]) {
             }
             else{
                write_binary(encode_Rtype(0,registers[terms[1]], 0, 31,0, 9), inst_outfile);
-             }
             }
+        }
 
         else if (inst_type == "syscall"){
             write_binary(53260, inst_outfile);
@@ -232,9 +241,6 @@ int main(int argc, char* argv[]) {
     }
 }
 
-
-
-
 int encode_Rtype(int opcode, int rs, int rt, int rd, int shftamt, int funccode) {
     return (opcode << 26) + (rs << 21) + (rt << 16) + (rd << 11) + (shftamt << 6) + funccode;
 }
@@ -246,5 +252,7 @@ int encode_Itype(int opcode, int rs, int rt, int immediate){
 int encode_Jtype(int opcode, int address){
     return (opcode << 26) + address;
 }
-#endif
 
+
+
+#endif
