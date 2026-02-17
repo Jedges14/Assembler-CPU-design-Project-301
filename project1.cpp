@@ -61,17 +61,20 @@ int main(int argc, char* argv[]) {
                 if(inData){
                     symbol_dict[label]= static_Byte_Counter;
                     if (split_Instruct.size() > 2 && split_Instruct[1] == ".word") {
+                        //i think we can do a static_Byte_Counter += 4 * (split_Instruct.size() - 2)
                         for (int i = 2; i < split_Instruct.size(); i++) {
                             static_Byte_Counter += 4;  // each word = 4 bytes
                         }
                     }
                     else if (split_Instruct.size() > 2 && split_Instruct[1] == ".byte"){
-                        static_Byte_Counter ++;
+                        static_Byte_Counter += split_Instruct.size() - 2; //so we store each byte as 1 // the -2 is to bypass label and .byte
                     }
 
                     else if (split_Instruct.size() > 2 && split_Instruct[1] == ".asciiz"){
-                        std :: string start = str.substr(str.find("\"")+1, str.find_last_of("\"")); //find the start of the string using " and " as markers
-
+                        int asciiString_start = str.find("\"")+1;
+                        int asciiString_end =  str.find_last_of("\""); //find the start of the string using " and " as markers
+                        std:: string asciiString  = str. substr(asciiString_start, asciiString_end - asciiString_start);
+                        static_Byte_Counter += asciiString.length()+1; // since each string ends with a 0 so +1
                     }
                 }
 
