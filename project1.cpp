@@ -112,6 +112,53 @@ int main(int argc, char* argv[]) {
      * Process all static memory, output to static memory file
      * TODO: All of this
      */
+for (int i = 1; i < argc - 2; i++) {
+    std::ifstream infile(argv[i]);
+    if (!infile) {
+        std::cerr << "Error: could not open file: " << argv[i] << std::endl;
+        exit(1);
+    }
+
+    std::string str;
+    bool inData = false;
+
+    while (getline(infile, str)) {
+
+        str = clean(str);
+        if (str == "") {continue};
+
+        if (str == ".data") {
+            inData = true;
+            continue;
+        }
+        if (str == ".text") {
+            inData = false;
+            continue;
+        }
+
+        if (!inData) {continue};
+
+        std::vector<std::string> split_Instruct =split(str, WHITESPACE + ",()");
+
+        // Skip label only lines
+        int startIndex = 0;
+        if (str.find(":") != std::string::npos) {
+            if (split_Instruct.size() == 1) {continue};
+            startIndex = 1;  //starts after the label
+        }
+
+        if (split_Instruct[startIndex] == ".word") {
+
+            for (int j = startIndex + 1; j < split_Instruct.size(); j++) {
+                int value = std::stoi(split_Instruct[j]);
+                write_binary(value, static_outfile);
+            }
+        }
+    }
+
+    infile.close();
+}
+
 
     /** Phase 3
      * Process all instructions, output to instruction memory file
