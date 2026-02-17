@@ -33,7 +33,7 @@ int main(int argc, char* argv[]) {
     std::map<std::string, int> symbol_dict;
     int static_Byte_Counter=0;
     int instruction_Line_Counter=0;
-    bool inData;
+    bool inData = false;
     //For each input file:
     for (int i = 1; i < argc - 2; i++) {
         std::ifstream infile(argv[i]); //  open the input file for reading
@@ -72,19 +72,26 @@ int main(int argc, char* argv[]) {
                     symbol_dict[label]= instruction_Line_Counter;
                 }
              }
-            if(inData==false&&str.find(":") == str.npos){
+            if(inData==false && str.find(":") == str.npos){
                 // add all diffrent cases, including where >16 bits and adds multiple lines to code, addi is 3
-                instruction_Line_Counter++;
-                if(split_Instruct[0]=="la"&& Check16Bit(std::stoi(split_Instruct[2]))){
-                    instruction_Line_Counter++;// replaces two instructs with 1
+                
+                if(split_Instruct[0]=="la"){ //&& Check16Bit(std::stoi(split_Instruct[2])
+                    int address = symbol_dict[terms[2]];
+
+                    if (check16Bit(address)){instruction_Line_Counter ++;}
+                    else{instruction_Line_Counter +=2;}// replaces 1 instructs with 2
 
                 }
 
-                if(split_Instruct[0]=="addi"&&Check16Bit(std::stoi(split_Instruct[3]))){
-                    instruction_Line_Counter++;// replaces 1 instructs with 3
-                    instruction_Line_Counter++;
+                else if(split_Instruct[0]=="addi"){ //updated to match phase if immediate is bigger than 16bit
+                    int imm = std::stoi(terms[3]); 
+
+                    if (check16Bit(imm)){instruction_Line_Counter += 1;}
+
+                    else{instruction_Line_Counter += 3;}// replaces 1 instructs with 3
 
                 }
+                else{instruction_Line_Counter++;}
             }
             if(str.find(":") == str.npos){instructions.push_back(str);}
         }
@@ -127,9 +134,7 @@ int main(int argc, char* argv[]) {
                 write_binary(encode_Itype(15,0,1,upper),inst_outfile);
                 write_binary(encode_Itype(13,1,1,lower),inst_outfile);
                 write_binary(encode_Rtype(0,registers[terms[2]],1, registers[terms[1]], 0, 32),inst_outfile);    
-                new_instruction_Line_Counter++;
-                new_instruction_Line_Counter++;
-                new_instruction_Line_Counter++;
+                new_instruction_Line_Counter+=3;
             }
         }
 
@@ -190,8 +195,8 @@ int main(int argc, char* argv[]) {
         }
 
         else if (inst_type == "bne"){
-            int val = symbol_dict.at(terms[3]) -(instruction_Line_Counter+1);
-            if (check16bits(val)){
+            int val = symbol_dict.at(terms[3]) -(new_instruction_Line_Counter+1);
+            if (check16Bit(val)){
                 write_binary(encode_Itype(5,registers[terms[1]], registers[terms[2]], val),inst_outfile);}
 
             else{
@@ -250,11 +255,11 @@ int encode_Rtype(int opcode, int rs, int rt, int rd, int shftamt, int funccode) 
 }
 
 int encode_Itype(int opcode, int rs, int rt, int immediate){
-    return (opcode << 26) + (rs << 21) + (rt << 16) + immediate;
+    return (opcode << 26) + (rs << 21) + (rt << 16) + (immediate & 0xFFFF);
 }
 
 int encode_Jtype(int opcode, int address){
-    return (opcode << 26) + address;
+    return (opcode << 26) + ( address & 0x03FFFFFF);
 }
 
 
