@@ -59,12 +59,19 @@ int main(int argc, char* argv[]) {
                 std::string label = split_Instruct[0];
                 label.pop_back(); 
                 if(inData){
-
                     symbol_dict[label]= static_Byte_Counter;
                     if (split_Instruct.size() > 2 && split_Instruct[1] == ".word") {
                         for (int i = 2; i < split_Instruct.size(); i++) {
                             static_Byte_Counter += 4;  // each word = 4 bytes
                         }
+                    }
+                    else if (split_Instruct.size() > 2 && split_Instruct[1] == ".byte"){
+                        static_Byte_Counter ++;
+                    }
+
+                    else if (split_Instruct.size() > 2 && split_Instruct[1] == ".asciiz"){
+                        std :: string start = str.substr(str.find("\"")+1, str.find_last_of("\"")); //find the start of the string using " and " as markers
+
                     }
                 }
 
