@@ -60,6 +60,9 @@ int encode_Rtype(int opcode, int rs, int rt, int rd, int shftamt, int funccode) 
     return (opcode << 26) + (rs << 21) + (rt << 16) + (rd << 11) + (shftamt << 6) + funccode;
 }
 
+bool check16bits(int val){
+    return val >= -32768 && val <= 32767;
+}
 
 static std::unordered_map<std::string, int> registers {
   {"$zero", 0}, {"$0", 0},
