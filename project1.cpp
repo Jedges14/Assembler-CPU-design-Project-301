@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
     }
     //Prepare output files
     std::ofstream inst_outfile, static_outfile;
-    static_outfile.open(argv[argc - 1], std::ios::binary);// maybe error here? argc-2 would be the staticmem_outfile.bin according to above command line arguemnets
+    static_outfile.open(argv[argc - 2], std::ios::binary);// maybe error here? argc-2 would be the staticmem_outfile.bin according to above command line arguemnets
     inst_outfile.open(argv[argc - 1], std::ios::binary);
     std::vector<std::string> instructions;
 
@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
      * TODO: Determine the numbers for all static memory labels
      * (measured in bytes starting at 0)
      * TODO: Determine the line numbers of all instruction line labels
-     * (measured in instructions) starting at 0
+     * (measured in instructions) starting at 0F
     */
     std::map<std::string, int> symbol_dict;
     int static_Byte_Counter=0;
@@ -84,19 +84,19 @@ int main(int argc, char* argv[]) {
              }
             if(inData==false && str.find(":") == str.npos){
                 // add all diffrent cases, including where >16 bits and adds multiple lines to code, addi is 3
-                
-                if(split_Instruct[0]=="la"){ //&& Check16Bit(std::stoi(split_Instruct[2])
-                    int address = symbol_dict[terms[2]];
-
-                    if (check16Bit(address)){instruction_Line_Counter ++;}
-                    else{instruction_Line_Counter +=2;}// replaces 1 instructs with 2
+                //La has same issues as beq and bne where we dont know the labels at this point so we can not calculate if it is larger than 16 bits
+                // solution is to always expand instructions
+                if(split_Instruct[0]=="la"||split_Instruct[0]=="bne"||split_Instruct[0]=="beq"){ //&& Check16Bit(std::stoi(split_Instruct[2])
+                    int address = symbol_dict[split_Instruct[2]];
+                    instruction_Line_Counter +=2;
+                    // if (check16Bit(address)){instruction_Line_Counter ++;}
+                    // else{instruction_Line_Counter +=2;}// replaces 1 instructs with 2
 
                 }
-
                 else if(split_Instruct[0]=="addi"){ //updated to match phase if immediate is bigger than 16bit
-                    int imm = std::stoi(terms[3]); 
+                    int imm = std::stoi(split_Instruct  [3]); 
 
-                    if (check16Bit(imm)){instruction_Line_Counter += 1;}
+                    if (check16Bit(imm)){instruction_Line_Counter ++;}
 
                     else{instruction_Line_Counter += 3;}// replaces 1 instructs with 3
 
