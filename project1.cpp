@@ -310,17 +310,6 @@ for (int i = 1; i < argc - 2; i++) {
     }
 }
 
-int encode_Rtype(int opcode, int rs, int rt, int rd, int shftamt, int funccode) {
-    return (opcode << 26) + (rs << 21) + (rt << 16) + (rd << 11) + (shftamt << 6) + funccode;
-}
-
-int encode_Itype(int opcode, int rs, int rt, int immediate){
-    return (opcode << 26) + (rs << 21) + (rt << 16) + (immediate & 0xFFFF);
-}
-
-int encode_Jtype(int opcode, int address){
-    return (opcode << 26) + ( address & 0x03FFFFFF);
-}
 
 
 

@@ -18,4 +18,5 @@ assemble: $(OBJS)
 	$(CC) $(CCFLAGS) -I . -c $<
 
 clean:
-	/bin/rm -f a.out $(OBJS) $(EXECS)
+	rm -f $(OBJS) $(EXECS)
+
