@@ -125,7 +125,8 @@ for (int i = 1; i < argc - 2; i++) {
     while (getline(infile, str)) {
 
         str = clean(str);
-        if (str == "") {continue};
+        if (str == "") 
+        {continue;}
 
         if (str == ".data") {
             inData = true;
@@ -136,14 +137,16 @@ for (int i = 1; i < argc - 2; i++) {
             continue;
         }
 
-        if (!inData) {continue};
+        if (!inData) {
+            continue;
+        }
 
         std::vector<std::string> split_Instruct =split(str, WHITESPACE + ",()");
 
         // Skip label only lines
         int startIndex = 0;
         if (str.find(":") != std::string::npos) {
-            if (split_Instruct.size() == 1) {continue};
+            if (split_Instruct.size() == 1) {continue;}
             startIndex = 1;  //starts after the label
         }
 
@@ -295,8 +298,8 @@ for (int i = 1; i < argc - 2; i++) {
                 write_binary(encode_Itype(13,0,registers[terms[1]],address),inst_outfile);
             }
             else{
-                uint16_t top = (address >> 16) & 0xFFFF;
-                int16_t bot = (address) & 0xFFFF ;
+                int top = (address >> 16) & 0xFFFF;
+                int bot = (address) & 0xFFFF ;
 
                 write_binary(encode_Itype(15,0,registers[terms[1]],top),inst_outfile); //perform a lui operation with top 16
                 write_binary(encode_Itype(13,registers[terms[1]],registers[terms[1]],bot),inst_outfile); //perform an ori operation with bottom 16
