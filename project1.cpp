@@ -2,6 +2,8 @@
 #define __PROJECT1_CPP__
 
 #include "project1.h"
+// #include "readbytes.cpp"
+
 #include <vector>
 #include <string>
 #include <map>
@@ -16,6 +18,7 @@ int main(int argc, char* argv[]) {
         std::cerr << "Expected Usage:\n ./assemble infile1.asm infile2.asm ... infilek.asm staticmem_outfile.bin instructions_outfile.bin\n" << std::endl;
         exit(1);
     }
+    //  ./assemble infile1.asm staticmem_outfile.bin instructions_outfile.bin 
     //Prepare output files
     std::ofstream inst_outfile, static_outfile;
     static_outfile.open(argv[argc - 2], std::ios::binary);// maybe error here? argc-2 would be the staticmem_outfile.bin according to above command line arguemnets
@@ -150,13 +153,28 @@ for (int i = 1; i < argc - 2; i++) {
             startIndex = 1;  //starts after the label
         }
 
-        if (split_Instruct[startIndex] == ".word") {
+    if (split_Instruct[startIndex] == ".word") {
+        for (int j = startIndex + 1; j < split_Instruct.size(); j++) {
+            std::string token = split_Instruct[j];
+            int value;
 
-            for (int j = startIndex + 1; j < split_Instruct.size(); j++) {
-                int value = std::stoi(split_Instruct[j]);
-                write_binary(value, static_outfile);
+            // Check if token is a number
+            try {
+                value = std::stoi(token);
+            } catch (std::invalid_argument&) {
+                // Not a number: treat it as a label
+                if (symbol_dict.find(token) != symbol_dict.end()) {
+                    value = symbol_dict[token];
+                } else {
+                    std::cerr << "Error: unknown symbol in .word: " << token << std::endl;
+                    exit(1);
+                }
             }
+
+            write_binary(value, static_outfile);
         }
+    }
+
     }
 
     infile.close();
@@ -308,6 +326,7 @@ for (int i = 1; i < argc - 2; i++) {
         }
         new_instruction_Line_Counter++;
     }
+    
 }
 
 
