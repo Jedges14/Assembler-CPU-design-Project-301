@@ -274,25 +274,27 @@ for (int i = 1; i < argc - 2; i++) {
         }
 
         else if(inst_type=="beq"){
-            int val=symbol_dict.at(terms[3])-(new_instruction_Line_Counter+1);
+            new_instruction_Line_Counter++;   
+
+            int val=symbol_dict.at(terms[3])-(new_instruction_Line_Counter);
             // if(check16Bit(val)){
             //     write_binary(encode_Itype(4,registers[terms[1]],registers[terms[2]],val),inst_outfile);
             // }else{
         
             write_binary(encode_Itype(5,registers[terms[1]],registers[terms[2]],1),inst_outfile);
             write_binary(encode_Jtype(2,symbol_dict.at(terms[3])),inst_outfile);
-            new_instruction_Line_Counter++;   
         }
 
         else if (inst_type == "bne"){
-            int val = symbol_dict.at(terms[3]) -(new_instruction_Line_Counter+1);
+            new_instruction_Line_Counter++;
+
+            int val = symbol_dict.at(terms[3]) -(new_instruction_Line_Counter);
             // if(check16Bit(val)){
             //     write_binary(encode_Itype(5,registers[terms[1]],registers[terms[2]],val),inst_outfile);
             // }else{
         
             write_binary(encode_Itype(4, registers[terms[1]], registers[terms[2]],1), inst_outfile);
             write_binary(encode_Jtype(2, symbol_dict.at(terms[3])), inst_outfile);
-            new_instruction_Line_Counter++;
             
         }
 
