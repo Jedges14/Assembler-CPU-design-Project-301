@@ -49,6 +49,7 @@ int main(int argc, char* argv[]) {
         std::string str;
         while (getline(infile, str)){ //Read a line from the file
             str = clean(str); // remove comments, leading and trailing whitespace
+            std::cerr << "DEBUG Phase1: '" << str << "'" << std::endl; 
             if (str == "") { //Ignore empty lines
                 continue;
             }
@@ -75,21 +76,16 @@ int main(int argc, char* argv[]) {
                         static_Byte_Counter += split_Instruct.size() - 2; //so we store each byte as 1 // the -2 is to bypass label and .byte
                     }
 
-                    else if (split_Instruct.size() > 2 && split_Instruct[1] == ".asciiz") {
-                        
-                        size_t asciiString_start = str.find("\"");
-                        size_t asciiString_end = str.find_last_of("\"");
-
-                        if (asciiString_start == std::string::npos || asciiString_end == std::string::npos || asciiString_end <= asciiString_start) {
-                            std::cerr << "Error: invalid .asciiz string: " << str << std::endl;
-                            exit(1);
+                    else if (str.find(".asciiz") != std::string::npos) { //split_Instruct.size() > 2 && split_Instruct[1] == ".asciiz"
+                        size_t first_quote = str.find('"');
+                        size_t second_quote = str.find('"', first_quote + 1);
+                        if (first_quote == std::string::npos || second_quote == std::string::npos || second_quote <= first_quote ) {
+                            std::cerr << "Error: poor quote in .asciiz: " << str << std::endl;
+                            continue;
                         }
-
-                        asciiString_start += 1; // skip the opening quote
-                        std::string asciiString = str.substr(asciiString_start, asciiString_end - asciiString_start);
-                        static_Byte_Counter += asciiString.length() + 1; // +1 for null terminator
+                        std::string asciiString = str.substr(first_quote + 1, second_quote - first_quote - 1); //get string
+                        static_Byte_Counter += asciiString.length() + 1;  //to include zero for null terminating
                     }
-
                 }
 
                 if(!inData){
@@ -164,30 +160,31 @@ for (int i = 1; i < argc - 2; i++) {
             startIndex = 1;  //starts after the label
         }
 
-    if (split_Instruct[startIndex] == ".word") {
-        for (int j = startIndex + 1; j < split_Instruct.size(); j++) {
-            std::string token = split_Instruct[j];
-            int value;
+        if (split_Instruct.empty() || startIndex >= split_Instruct.size()) {
+            continue;
+        }
+        if (split_Instruct[startIndex] == ".word") {
+            for (int j = startIndex + 1; j < split_Instruct.size(); j++) {
+                std::string token = split_Instruct[j];
+                int value;
 
-            // Check if token is a number
-            try {
-                value = std::stoi(token);
-            } catch (std::invalid_argument&) {
-                // Not a number: treat it as a label
-                if (symbol_dict.find(token) != symbol_dict.end()) {
-                    value = symbol_dict[token];
-                } else {
-                    std::cerr << "Error: unknown symbol in .word: " << token << std::endl;
-                    exit(1);
+                // Check if token is a number
+                try {
+                    value = std::stoi(token);
+                } catch (std::invalid_argument&) {
+                    // Not a number: treat it as a label
+                    if (symbol_dict.find(token) != symbol_dict.end()) {
+                        value = symbol_dict[token];
+                    } else {
+                        std::cerr << "Error: unknown symbol in .word: " << token << std::endl;
+                        exit(1);
+                    }
                 }
-            }
 
-            write_binary(value, static_outfile);
+                write_binary(value, static_outfile);
+            }
         }
     }
-
-    }
-
     infile.close();
 }
 
