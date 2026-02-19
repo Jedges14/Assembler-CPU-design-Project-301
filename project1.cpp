@@ -59,7 +59,7 @@ int main(int argc, char* argv[]) {
                 inData=false;
                 }
             std::vector<std::string> split_Instruct=split(str,WHITESPACE+",()");
-            if (str.find(":") != str.npos){
+            if (!split_Instruct.empty() && split_Instruct[0].back() == ':'){
                 
                 std::string label = split_Instruct[0];
                 label.pop_back(); 
@@ -75,12 +75,21 @@ int main(int argc, char* argv[]) {
                         static_Byte_Counter += split_Instruct.size() - 2; //so we store each byte as 1 // the -2 is to bypass label and .byte
                     }
 
-                    else if (split_Instruct.size() > 2 && split_Instruct[1] == ".asciiz"){
-                        int asciiString_start = str.find("\"")+1;
-                        int asciiString_end =  str.find_last_of("\""); //find the start of the string using " and " as markers
-                        std:: string asciiString  = str. substr(asciiString_start, asciiString_end - asciiString_start);
-                        static_Byte_Counter += asciiString.length()+1; // since each string ends with a 0 so +1
+                    else if (split_Instruct.size() > 2 && split_Instruct[1] == ".asciiz") {
+                        
+                        size_t asciiString_start = str.find("\"");
+                        size_t asciiString_end = str.find_last_of("\"");
+
+                        if (asciiString_start == std::string::npos || asciiString_end == std::string::npos || asciiString_end <= asciiString_start) {
+                            std::cerr << "Error: invalid .asciiz string: " << str << std::endl;
+                            exit(1);
+                        }
+
+                        asciiString_start += 1; // skip the opening quote
+                        std::string asciiString = str.substr(asciiString_start, asciiString_end - asciiString_start);
+                        static_Byte_Counter += asciiString.length() + 1; // +1 for null terminator
                     }
+
                 }
 
                 if(!inData){
