@@ -1,3 +1,7 @@
+/**
+ * @authors Brandt Rohan, Jedges Gyasi
+ * @date 2/19/2026
+ */
 #ifndef __PROJECT1_CPP__
 #define __PROJECT1_CPP__
 
@@ -55,10 +59,12 @@ int main(int argc, char* argv[]) {
             }
             if(str==".data"){
                 inData=true;
+                continue;
             }
             if(str==".text"){
                 inData=false;
-                }
+                continue;
+            }
             std::vector<std::string> split_Instruct=split(str,WHITESPACE+",()");
             if (!split_Instruct.empty() && split_Instruct[0].back() == ':'){
                 
@@ -98,11 +104,7 @@ int main(int argc, char* argv[]) {
                 //La has same issues as beq and bne where we dont know the labels at this point so we can not calculate if it is larger than 16 bits
                 // solution is to always expand instructions
                 if(split_Instruct[0]=="la"||split_Instruct[0]=="bne"||split_Instruct[0]=="beq"){ //&& Check16Bit(std::stoi(split_Instruct[2])
-                    // int address = symbol_dict[split_Instruct[2]];
                     instruction_Line_Counter +=2;
-                    // if (check16Bit(address)){instruction_Line_Counter ++;}
-                    // else{instruction_Line_Counter +=2;}// replaces 1 instructs with 2
-
                 }
                 else if(split_Instruct[0]=="addi"){ //updated to match phase if immediate is bigger than 16bit
                     int imm = std::stoi(split_Instruct  [3]); 
@@ -139,7 +141,7 @@ for (int i = 1; i < argc - 2; i++) {
 
         str = clean(str);
         if (str == "") 
-        {continue;}
+            {continue;}
 
         if (str == ".data") {
             inData = true;
@@ -170,7 +172,6 @@ for (int i = 1; i < argc - 2; i++) {
             for (int j = startIndex + 1; j < split_Instruct.size(); j++) {
                 std::string token = split_Instruct[j];
                 int value;
-
                 // Check if token is a number
                 try {
                     value = std::stoi(token);
@@ -190,7 +191,6 @@ for (int i = 1; i < argc - 2; i++) {
     }
     infile.close();
 }
-
 
     /** Phase 3
      * Process all instructions, output to instruction memory file
@@ -276,11 +276,7 @@ for (int i = 1; i < argc - 2; i++) {
         else if(inst_type=="beq"){
             new_instruction_Line_Counter++;   
 
-            int val=symbol_dict.at(terms[3])-(new_instruction_Line_Counter+1);
-            // if(check16Bit(val)){
-            //     write_binary(encode_Itype(4,registers[terms[1]],registers[terms[2]],val),inst_outfile);
-            // }else{
-        
+            int val=symbol_dict.at(terms[3])-(new_instruction_Line_Counter+1); //find curr position line
             write_binary(encode_Itype(5,registers[terms[1]],registers[terms[2]],1),inst_outfile);
             write_binary(encode_Jtype(2,symbol_dict.at(terms[3])),inst_outfile);
         }
@@ -289,10 +285,6 @@ for (int i = 1; i < argc - 2; i++) {
             new_instruction_Line_Counter++;
 
             int val = symbol_dict.at(terms[3]) -(new_instruction_Line_Counter+1);
-            // if(check16Bit(val)){
-            //     write_binary(encode_Itype(5,registers[terms[1]],registers[terms[2]],val),inst_outfile);
-            // }else{
-        
             write_binary(encode_Itype(4, registers[terms[1]], registers[terms[2]],1), inst_outfile);
             write_binary(encode_Jtype(2, symbol_dict.at(terms[3])), inst_outfile);
             
@@ -325,16 +317,13 @@ for (int i = 1; i < argc - 2; i++) {
 
         else if (inst_type == "la"){
             int address = symbol_dict[terms[2]];
-            // if (check16Bit(address)){
-            //      write_binary(encode_Itype(13,0,registers[terms[1]],address & 0xFFFF),inst_outfile); //perform an ori operation with bottom 16
-            // }else{
 
-                int top = (address >> 16) & 0xFFFF;
-                int bot = (address) & 0xFFFF ;
+            int top = (address >> 16) & 0xFFFF;
+            int bot = (address) & 0xFFFF ;
 
-                write_binary(encode_Itype(15,0,registers[terms[1]],top),inst_outfile); //perform a lui operation with top 16
-                write_binary(encode_Itype(13,registers[terms[1]],registers[terms[1]],bot),inst_outfile); //perform an ori operation with bottom 16
-                new_instruction_Line_Counter++;
+            write_binary(encode_Itype(15,0,registers[terms[1]],top),inst_outfile); //perform a lui operation with top 16
+            write_binary(encode_Itype(13,registers[terms[1]],registers[terms[1]],bot),inst_outfile); //perform an ori operation with bottom 16
+            new_instruction_Line_Counter++;
             
         }
         new_instruction_Line_Counter++;
@@ -343,16 +332,16 @@ for (int i = 1; i < argc - 2; i++) {
     std::cout << "Phase3 instruction count: " << new_instruction_Line_Counter << std::endl;
 
     // Unccoment below to run readbytes
-    inst_outfile.close();
-    static_outfile.close();  
-        std::string filename = argv[argc-1];
-    int buffer;
-    std::ifstream file(filename, std::ios::in | std::ios::binary);
-    while(file.read((char*) &buffer,sizeof(int))) {
-        std::cout << std::bitset<32>(buffer) << " " << std::setfill('0') <<
-        std::setw(8) << std::hex << buffer << " " << std::dec << buffer << std::endl;
-    }
-    file.close();
+    // inst_outfile.close();
+    // static_outfile.close();  
+    //     std::string filename = argv[argc-1];
+    // int buffer;
+    // std::ifstream file(filename, std::ios::in | std::ios::binary);
+    // while(file.read((char*) &buffer,sizeof(int))) {
+    //     std::cout << std::bitset<32>(buffer) << " " << std::setfill('0') <<
+    //     std::setw(8) << std::hex << buffer << " " << std::dec << buffer << std::endl;
+    // }
+    // file.close();
 }
 
 

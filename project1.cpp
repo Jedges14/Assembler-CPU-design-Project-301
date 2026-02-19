@@ -1,3 +1,7 @@
+/**
+ * @authors Brandt Rohan, Jedges Gyasi
+ * @date 2/19/2026
+ */
 #ifndef __PROJECT1_CPP__
 #define __PROJECT1_CPP__
 
@@ -58,9 +62,11 @@ int main(int argc, char* argv[]) {
             }
             if(str==".data"){
                 inData=true;
+                continue;
             }
             if(str==".text"){
                 inData=false;
+                continue;
                 }
             std::vector<std::string> split_Instruct=split(str,WHITESPACE+",()");
             if (!split_Instruct.empty() && split_Instruct[0].back() == ':'){
@@ -70,7 +76,7 @@ int main(int argc, char* argv[]) {
                 if(inData){
                     symbol_dict[label]= static_Byte_Counter;
                     if (split_Instruct.size() > 2 && split_Instruct[1] == ".word") {
-                        //i think we can do a static_Byte_Counter += 4 * (split_Instruct.size() - 2)
+                       
                         for (int i = 2; i < split_Instruct.size(); i++) {
                             static_Byte_Counter += 4;  // each word = 4 bytes
                         }
@@ -112,71 +118,71 @@ int main(int argc, char* argv[]) {
      * Process all static memory, output to static memory file
      * TODO: All of this
      */
-for (int i = 1; i < argc - 2; i++) {
-    std::ifstream infile(argv[i]);
-    if (!infile) {
-        std::cerr << "Error: could not open file: " << argv[i] << std::endl;
-        exit(1);
-    }
-
-    std::string str;
-    bool inData = false;
-
-    while (getline(infile, str)) {
-
-        str = clean(str);
-        if (str == "") 
-        {continue;}
-
-        if (str == ".data") {
-            inData = true;
-            continue;
-        }
-        if (str == ".text") {
-            inData = false;
-            continue;
+    for (int i = 1; i < argc - 2; i++) {
+        std::ifstream infile(argv[i]);
+        if (!infile) {
+            std::cerr << "Error: could not open file: " << argv[i] << std::endl;
+            exit(1);
         }
 
-        if (!inData) {
-            continue;
-        }
+        std::string str;
+        bool inData = false;
 
-        std::vector<std::string> split_Instruct =split(str, WHITESPACE + ",()");
+        while (getline(infile, str)) {
 
-        // Skip label only lines
-        int startIndex = 0;
-        if (str.find(":") != std::string::npos) {
-            if (split_Instruct.size() == 1) {continue;}
-            startIndex = 1;  //starts after the label
-        }
+            str = clean(str);
+            if (str == "") 
+            {continue;}
 
-        if (split_Instruct.empty() || startIndex >= split_Instruct.size()) {
-            continue;
-        }
-        if (split_Instruct[startIndex] == ".word") {
-            for (int j = startIndex + 1; j < split_Instruct.size(); j++) {
-                std::string token = split_Instruct[j];
-                int value;
+            if (str == ".data") {
+                inData = true;
+                continue;
+            }
+            if (str == ".text") {
+                inData = false;
+                continue;
+            }
 
-                // Check if token is a number
-                try {
-                    value = std::stoi(token);
-                } catch (std::invalid_argument&) {
-                    // Not a number: treat it as a label
-                    if (symbol_dict.find(token) != symbol_dict.end()) {
-                        value = symbol_dict[token] *4; //store label as byte
-                    } else {
-                        std::cerr << "Error: unknown symbol in .word: " << token << std::endl;
-                        exit(1);
+            if (!inData) {
+                continue;
+            }
+
+            std::vector<std::string> split_Instruct =split(str, WHITESPACE + ",()");
+
+            // Skip label only lines
+            int startIndex = 0;
+            if (str.find(":") != std::string::npos) {
+                if (split_Instruct.size() == 1) {continue;}
+                startIndex = 1;  //starts after the label
+            }
+
+            if (split_Instruct.empty() || startIndex >= split_Instruct.size()) {
+                continue;
+            }
+            if (split_Instruct[startIndex] == ".word") {
+                for (int j = startIndex + 1; j < split_Instruct.size(); j++) {
+                    std::string token = split_Instruct[j];
+                    int value;
+
+                    // Check if token is a number
+                    try {
+                        value = std::stoi(token);
+                    } catch (std::invalid_argument&) {
+                        // Not a number: treat it as a label
+                        if (symbol_dict.find(token) != symbol_dict.end()) {
+                            value = symbol_dict[token] *4; //store label as byte
+                        } else {
+                            std::cerr << "Error: unknown symbol in .word: " << token << std::endl;
+                            exit(1);
+                        }
                     }
-                }
 
-                write_binary(value, static_outfile);
+                    write_binary(value, static_outfile);
+                }
             }
         }
+        infile.close();
     }
-    infile.close();
-}
 
 
     /** Phase 3
@@ -192,114 +198,90 @@ for (int i = 1; i < argc - 2; i++) {
         // std::cout<<inst<<":   "<<new_instruction_Line_Counter<<std::endl;
         std::vector<std::string> terms = split(inst, WHITESPACE+",()");
         std::string inst_type = terms[0];
-
+        //add encode
         if (inst_type == "add") {
             write_binary(encode_Rtype(0,registers[terms[2]], registers[terms[3]], registers[terms[1]], 0, 32),inst_outfile);
         }
+        //sub encode
         else if (inst_type == "sub"){
             write_binary(encode_Rtype(0,registers[terms[2]], registers[terms[3]], registers[terms[1]], 0, 34), inst_outfile);
         }
-
+        //addi encode
         else if (inst_type == "addi"){
-
             int imm = std::stoi(terms[3]);
-            // if(imm >= -32768 && imm <= 32767){
-                write_binary(encode_Itype(8,registers[terms[2]], registers[terms[1]], imm),inst_outfile);
-                // new_instruction_Line_Counter++;
-                // else{
-
-            //     int upper = (imm >> 16) & 0xFFFF;
-            //     int lower = imm & 0xFFFF;
-
-            //     write_binary(encode_Itype(15,0,1,upper),inst_outfile);
-            //     write_binary(encode_Itype(13,1,1,lower),inst_outfile);
-            //     write_binary(encode_Rtype(0,registers[terms[2]],1, registers[terms[1]], 0, 32),inst_outfile);    
-            //     new_instruction_Line_Counter+=2;
-            // }
+            write_binary(encode_Itype(8,registers[terms[2]], registers[terms[1]], imm),inst_outfile);
+       
         }
-
+        //mult encode
         else if(inst_type == "mult"){
             write_binary(encode_Rtype(0, registers[terms[1]], registers[terms[2]], 0, 0, 24), inst_outfile);
         }
-
+        //div encode
         else if (inst_type == "div"){
             write_binary(encode_Rtype(0, registers[terms[1]], registers[terms[2]], 0, 0, 26),inst_outfile);
         }
-
+        //encode slt
         else if (inst_type == "slt") {
             write_binary(encode_Rtype(0,registers[terms[2]], registers[terms[3]], registers[terms[1]], 0, 42),inst_outfile);
         }
-
+        // srl encode
         else if (inst_type == "srl") {
             int shamt  = stoi (terms[3]);
             write_binary(encode_Rtype(0,0,registers[terms[2]], registers[terms[1]], shamt, 2),inst_outfile);
         }
-
+        //sll encode
         else if (inst_type == "sll") {
             int shamt  = stoi(terms[3]);
             write_binary(encode_Rtype(0,0,registers[terms[2]], registers[terms[1]], shamt, 0),inst_outfile);
         }
-
+        //lw encode
         else if (inst_type == "lw") {
             write_binary(encode_Itype(35,registers[terms[3]],registers[terms[1]],std::stoi(terms[2])),inst_outfile);
         }
-
+        //encode sw
         else if (inst_type == "sw") {
             write_binary(encode_Itype(43,registers[terms[3]],registers[terms[1]],std::stoi(terms[2])),inst_outfile);
         }
-
+        //encode mfhi
         else if (inst_type == "mfhi") {
             write_binary(encode_Rtype(0,0,0,registers[terms[1]],0,16),inst_outfile);
         }
-
+        //encode mflo
         else if (inst_type == "mflo") {       
             write_binary(encode_Rtype(0,0,0,registers[terms[1]],0,18),inst_outfile);
         }
-
+        //mflo encode
         else if (inst_type == "lui") {
             write_binary(encode_Itype(15,0,registers[terms[1]],std::stoi(terms[2])),inst_outfile);
         }
-
+        //ori encode
         else if (inst_type == "ori") {
             write_binary(encode_Itype(13,registers[terms[2]],registers[terms[1]],std::stoi(terms[3])),inst_outfile);
         }
-
+        //beq encode
         else if(inst_type=="beq"){
             int val=symbol_dict.at(terms[3])-(new_instruction_Line_Counter+1);
-            // if(check16Bit(val)){
             write_binary(encode_Itype(4,registers[terms[1]],registers[terms[2]],val),inst_outfile);
-            // }else{
-        
-            // write_binary(encode_Itype(5,registers[terms[1]],registers[terms[2]],1),inst_outfile);
-            // write_binary(encode_Jtype(2,symbol_dict.at(terms[3])),inst_outfile);
-            // new_instruction_Line_Counter++;   
         }
-
+        //bne encode
         else if (inst_type == "bne"){
             int val = symbol_dict.at(terms[3]) -(new_instruction_Line_Counter+1);
             std::cout<<val<<"  "<<new_instruction_Line_Counter<<std::endl;
-            // if(check16Bit(val)){
-            write_binary(encode_Itype(5,registers[terms[1]],registers[terms[2]],val),inst_outfile);
-            // }else{
-        
-            // write_binary(encode_Itype(4, registers[terms[1]], registers[terms[2]],1), inst_outfile);
-            // write_binary(encode_Jtype(2, symbol_dict.at(terms[3])), inst_outfile);
-            // new_instruction_Line_Counter++;
-            
+            write_binary(encode_Itype(5,registers[terms[1]],registers[terms[2]],val),inst_outfile);    
         }
-
+        //j encode
         else if(inst_type == "j"){
             write_binary(encode_Jtype(2, symbol_dict.at(terms[1])), inst_outfile);
         }
-
+        //jal encode
         else if (inst_type == "jal"){
             write_binary(encode_Jtype(3, symbol_dict.at(terms[1])), inst_outfile);
         }
-
+        //jr encode
         else if (inst_type == "jr"){
             write_binary(encode_Rtype(0, registers[terms[1]], 0,0,0, 8), inst_outfile);
         }
-
+        //jalr encode
         else if (inst_type == "jalr"){
             if (terms.size() > 3){
                 write_binary(encode_Rtype(0,registers[terms[2]], 0, registers[terms[1]],0, 9), inst_outfile);
@@ -308,24 +290,14 @@ for (int i = 1; i < argc - 2; i++) {
                write_binary(encode_Rtype(0,registers[terms[1]], 0, 31,0, 9), inst_outfile);
             }
         }
-
+        //sycall enocode
         else if (inst_type == "syscall"){
             write_binary(53260, inst_outfile);
         }
 
         else if (inst_type == "la"){
             int address = symbol_dict[terms[2]];
-            // if (check16Bit(address)){
             write_binary(encode_Itype(13,0,registers[terms[1]],address & 0xFFFF),inst_outfile); //perform an ori operation with bottom 16
-            // }else{
-
-                // int top = (address >> 16) & 0xFFFF;
-                // int bot = (address) & 0xFFFF ;
-
-                // write_binary(encode_Itype(15,0,registers[terms[1]],top),inst_outfile); //perform a lui operation with top 16
-                // write_binary(encode_Itype(13,registers[terms[1]],registers[terms[1]],bot),inst_outfile); //perform an ori operation with bottom 16
-                // new_instruction_Line_Counter++;
-            
         }
         new_instruction_Line_Counter++;
     }
@@ -333,16 +305,16 @@ for (int i = 1; i < argc - 2; i++) {
     std::cout << "Phase3 instruction count: " << new_instruction_Line_Counter << std::endl;
 
     // Unccoment below to run readbytes
-    inst_outfile.close();
-    static_outfile.close();  
-        std::string filename = argv[argc-1];
-    int buffer;
-    std::ifstream file(filename, std::ios::in | std::ios::binary);
-    while(file.read((char*) &buffer,sizeof(int))) {
-        std::cout << std::bitset<32>(buffer) << " " << std::setfill('0') <<
-        std::setw(8) << std::hex << buffer << " " << std::dec << buffer << std::endl;
-    }
-    file.close();
+    // inst_outfile.close();
+    // static_outfile.close();  
+    //     std::string filename = argv[argc-1];
+    // int buffer;
+    // std::ifstream file(filename, std::ios::in | std::ios::binary);
+    // while(file.read((char*) &buffer,sizeof(int))) {
+    //     std::cout << std::bitset<32>(buffer) << " " << std::setfill('0') <<
+    //     std::setw(8) << std::hex << buffer << " " << std::dec << buffer << std::endl;
+    // }
+    // file.close();
 }
 
 
