@@ -176,7 +176,7 @@ for (int i = 1; i < argc - 2; i++) {
                 } catch (std::invalid_argument&) {
                     // Not a number: treat it as a label
                     if (symbol_dict.find(token) != symbol_dict.end()) {
-                        value = symbol_dict[token];
+                        value = symbol_dict[token] *4; //store label as byte
                     } else {
                         std::cerr << "Error: unknown symbol in .word: " << token << std::endl;
                         exit(1);
