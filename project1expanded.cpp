@@ -276,7 +276,7 @@ for (int i = 1; i < argc - 2; i++) {
         else if(inst_type=="beq"){
             new_instruction_Line_Counter++;   
 
-            int val=symbol_dict.at(terms[3])-(new_instruction_Line_Counter+1); //find curr position line
+            // int val=symbol_dict.at(terms[3])-(new_instruction_Line_Counter+1); //find curr position line
             write_binary(encode_Itype(5,registers[terms[1]],registers[terms[2]],1),inst_outfile);
             write_binary(encode_Jtype(2,symbol_dict.at(terms[3])),inst_outfile);
         }
@@ -284,7 +284,7 @@ for (int i = 1; i < argc - 2; i++) {
         else if (inst_type == "bne"){
             new_instruction_Line_Counter++;
 
-            int val = symbol_dict.at(terms[3]) -(new_instruction_Line_Counter+1);
+            // int val = symbol_dict.at(terms[3]) -(new_instruction_Line_Counter+1);
             write_binary(encode_Itype(4, registers[terms[1]], registers[terms[2]],1), inst_outfile);
             write_binary(encode_Jtype(2, symbol_dict.at(terms[3])), inst_outfile);
             
@@ -326,6 +326,45 @@ for (int i = 1; i < argc - 2; i++) {
             new_instruction_Line_Counter++;
             
         }
+        else if (inst_type == "sgt") {
+            write_binary(encode_Rtype(0,registers[terms[3]], registers[terms[2]], registers[terms[1]],0,42),inst_outfile);
+
+        }
+        else if (inst_type == "sge"){
+            write_binary(encode_Rtype(0,registers[terms[2]],registers[terms[3]],registers[terms[1]],0,42),inst_outfile);
+            write_binary(encode_Itype(14,registers[terms[1]],registers[terms[1]],1),inst_outfile);
+            new_instruction_Line_Counter++;
+        }
+        else if (inst_type == "xori"){
+        write_binary(encode_Itype(14,registers[terms[2]],registers[terms[1]],std::stoi(terms[3])),inst_outfile);
+        }
+        else if (inst_type == "andi"){
+        write_binary(encode_Itype(12,registers[terms[2]],registers[terms[1]],std::stoi(terms[3])),inst_outfile);
+        }
+        else if (inst_type == "xor"){
+        write_binary(encode_Rtype(0,registers[terms[2]],registers[terms[3]],registers[terms[1]],0,38),inst_outfile);
+        }
+        else if (inst_type == "nor"){
+        write_binary(encode_Rtype(0,registers[terms[2]],registers[terms[3]],registers[terms[1]],0,39),inst_outfile);
+        }
+        else if (inst_type == "or"){
+        write_binary(encode_Rtype(0,registers[terms[2]],registers[terms[3]],registers[terms[1]],0,37),inst_outfile);
+        }
+        else if (inst_type == "and"){
+        write_binary(encode_Rtype(0,registers[terms[2]],registers[terms[3]],registers[terms[1]],0,36),inst_outfile);
+        }
+        else if (inst_type == "sle"){
+        write_binary(encode_Rtype(0,registers[terms[3]],registers[terms[2]],registers[terms[1]],0,42),inst_outfile);
+        write_binary(encode_Itype(14,registers[terms[1]],registers[terms[1]],1),inst_outfile);
+        new_instruction_Line_Counter++;
+        }
+        else if (inst_type == "mov"){
+        write_binary(encode_Rtype(0,registers[terms[2]],0,registers[terms[1]],0,32),inst_outfile);
+        }
+        else if (inst_type == "not"){
+        write_binary(encode_Rtype(0,registers[terms[2]],0,registers[terms[1]],0,39),inst_outfile);
+        }
+
         new_instruction_Line_Counter++;
     }
     std :: cout << instructions.size() << std ::endl;

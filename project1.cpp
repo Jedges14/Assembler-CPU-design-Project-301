@@ -299,6 +299,45 @@ int main(int argc, char* argv[]) {
             int address = symbol_dict[terms[2]];
             write_binary(encode_Itype(13,0,registers[terms[1]],address & 0xFFFF),inst_outfile); //perform an ori operation with bottom 16
         }
+        else if (inst_type == "sgt") {
+        write_binary(encode_Rtype(0,registers[terms[3]], registers[terms[2]], registers[terms[1]],0,42),inst_outfile);
+        }
+        else if (inst_type == "sge"){
+        write_binary(encode_Rtype(0,registers[terms[2]],registers[terms[3]],registers[terms[1]],0,42),inst_outfile);
+        write_binary(encode_Itype(14,registers[terms[1]],registers[terms[1]],1),inst_outfile);
+        new_instruction_Line_Counter++;
+        }
+
+        else if (inst_type == "xori"){
+        write_binary(encode_Itype(14,registers[terms[2]],registers[terms[1]],std::stoi(terms[3])),inst_outfile);
+        }
+        else if (inst_type == "andi"){
+        write_binary(encode_Itype(12,registers[terms[2]],registers[terms[1]],std::stoi(terms[3])),inst_outfile);
+        }
+        else if (inst_type == "xor"){
+        write_binary(encode_Rtype(0,registers[terms[2]],registers[terms[3]],registers[terms[1]],0,38),inst_outfile);
+        }
+        else if (inst_type == "nor"){
+        write_binary(encode_Rtype(0,registers[terms[2]],registers[terms[3]],registers[terms[1]],0,39),inst_outfile);
+        }
+        else if (inst_type == "or"){
+        write_binary(encode_Rtype(0,registers[terms[2]],registers[terms[3]],registers[terms[1]],0,37),inst_outfile);
+        }
+        else if (inst_type == "and"){
+        write_binary(encode_Rtype(0,registers[terms[2]],registers[terms[3]],registers[terms[1]],0,36),inst_outfile);
+        }
+        else if (inst_type == "sle"){
+        write_binary(encode_Rtype(0,registers[terms[3]],registers[terms[2]],registers[terms[1]],0,42),inst_outfile);
+        write_binary(encode_Itype(14,registers[terms[1]],registers[terms[1]],1),inst_outfile);
+        new_instruction_Line_Counter++;
+        }
+        else if (inst_type == "mov"){
+        write_binary(encode_Rtype(0,registers[terms[2]],0,registers[terms[1]],0,32),inst_outfile);
+        }
+        else if (inst_type == "not"){
+        write_binary(encode_Rtype(0,registers[terms[2]],0,registers[terms[1]],0,39),inst_outfile);
+        }
+
         new_instruction_Line_Counter++;
     }
     std :: cout << instructions.size() << std ::endl;
