@@ -264,26 +264,19 @@ for (int i = 1; i < argc - 2; i++) {
         else if(inst_type=="beq"){
             int val=symbol_dict.at(terms[3])-(new_instruction_Line_Counter+1);
             
-            if(check16Bit(val)){
-            write_binary(encode_Itype(4,registers[terms[1]],registers[terms[2]],val),inst_outfile);
-            }
-            else{
                 write_binary(encode_Itype(5,registers[terms[1]],registers[terms[2]],1),inst_outfile);
                 write_binary(encode_Jtype(2,symbol_dict.at(terms[3])),inst_outfile);
                 new_instruction_Line_Counter++;
-            }
+            
         }
 
         else if (inst_type == "bne"){
             int val = symbol_dict.at(terms[3]) -(new_instruction_Line_Counter+1);
-            if (check16Bit(val)){
-                write_binary(encode_Itype(5,registers[terms[1]], registers[terms[2]], val),inst_outfile);}
-
-            else{
+            
                 write_binary(encode_Itype(4, registers[terms[1]], registers[terms[2]],1), inst_outfile);
                 write_binary(encode_Jtype(2, symbol_dict.at(terms[3])), inst_outfile);
                 new_instruction_Line_Counter++;
-            }        
+            
         }
 
         else if(inst_type == "j"){
@@ -314,17 +307,13 @@ for (int i = 1; i < argc - 2; i++) {
         else if (inst_type == "la"){
             int address = symbol_dict[terms[2]];
 
-            if (address >= 0 && address <= 65535){
-                write_binary(encode_Itype(13,0,registers[terms[1]],address),inst_outfile);
-            }
-            else{
                 int top = (address >> 16) & 0xFFFF;
                 int bot = (address) & 0xFFFF ;
 
                 write_binary(encode_Itype(15,0,registers[terms[1]],top),inst_outfile); //perform a lui operation with top 16
                 write_binary(encode_Itype(13,registers[terms[1]],registers[terms[1]],bot),inst_outfile); //perform an ori operation with bottom 16
                 new_instruction_Line_Counter++;
-            }
+            
         }
         new_instruction_Line_Counter++;
     }
