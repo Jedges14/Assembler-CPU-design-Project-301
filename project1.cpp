@@ -98,7 +98,7 @@ int main(int argc, char* argv[]) {
             if(inData==false && str.find(":") == str.npos&&str.find(".") == str.npos){
                 if(split_Instruct.empty()) continue;                
                 else{
-                    std::cout<< str<<"   "<<instruction_Line_Counter<<std::endl;
+                    // std::cout<< str<<"   "<<instruction_Line_Counter<<std::endl;
                     instruction_Line_Counter++;}
             }
             if(!inData && str.find(":") == str.npos){instructions.push_back(str);}
@@ -186,7 +186,10 @@ for (int i = 1; i < argc - 2; i++) {
     int max_instruct_line=instructions.size();
     int new_instruction_Line_Counter=0;
     for(std::string inst : instructions) {
-        
+        if(inst.find(".") != inst.npos){
+            continue;
+        }
+        // std::cout<<inst<<":   "<<new_instruction_Line_Counter<<std::endl;
         std::vector<std::string> terms = split(inst, WHITESPACE+",()");
         std::string inst_type = terms[0];
 
@@ -273,7 +276,8 @@ for (int i = 1; i < argc - 2; i++) {
         }
 
         else if (inst_type == "bne"){
-            int val = symbol_dict.at(terms[3]) -(new_instruction_Line_Counter+1);
+            int val = symbol_dict.at(terms[3]) -(new_instruction_Line_Counter);
+            std::cout<<val<<"  "<<new_instruction_Line_Counter<<std::endl;
             // if(check16Bit(val)){
             write_binary(encode_Itype(5,registers[terms[1]],registers[terms[2]],val),inst_outfile);
             // }else{
@@ -331,7 +335,7 @@ for (int i = 1; i < argc - 2; i++) {
     // Unccoment below to run readbytes
     inst_outfile.close();
     static_outfile.close();  
-        std::string filename = argv[argc-2];
+        std::string filename = argv[argc-1];
     int buffer;
     std::ifstream file(filename, std::ios::in | std::ios::binary);
     while(file.read((char*) &buffer,sizeof(int))) {
