@@ -111,7 +111,7 @@ int main(int argc, char* argv[]) {
         }
         infile.close();
     }
-    std::cout << "Phase1 instruction count: " << instruction_Line_Counter << std::endl;
+    // std::cout << "Phase1 instruction count: " << instruction_Line_Counter << std::endl;
 
 
     /** Phase 2
@@ -266,7 +266,7 @@ int main(int argc, char* argv[]) {
         //bne encode
         else if (inst_type == "bne"){
             int val = symbol_dict.at(terms[3]) -(new_instruction_Line_Counter+1);
-            std::cout<<val<<"  "<<new_instruction_Line_Counter<<std::endl;
+            // std::cout<<val<<"  "<<new_instruction_Line_Counter<<std::endl;
             write_binary(encode_Itype(5,registers[terms[1]],registers[terms[2]],val),inst_outfile);    
         }
         //j encode
@@ -340,8 +340,8 @@ int main(int argc, char* argv[]) {
 
         new_instruction_Line_Counter++;
     }
-    std :: cout << instructions.size() << std ::endl;
-    std::cout << "Phase3 instruction count: " << new_instruction_Line_Counter << std::endl;
+    // std :: cout << instructions.size() << std ::endl;
+    // std::cout << "Phase3 instruction count: " << new_instruction_Line_Counter << std::endl;
 
     // Unccoment below to run readbytes
     // inst_outfile.close();

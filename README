@@ -1,0 +1,13 @@
+We have created two seperate version of the project1.cpp file as discussed in lab, the first one named project1.cpp is the original and does not expand any instructions, which is needed in order to handle large immediates. 
+
+The second file is called project1expanded.cpp and contains the code that expands the beq, bne,addi, and la instructions to handle larger than 16 bit immediates.
+
+We have edited the make file to create two diffrerent assemble objects.
+
+The first is called assemble and that runs the project1.cpp and otherwise takes in the same in line parameters.
+
+The second is called assemble_alt and that runs the project1expanded.cpp and otherwise takes in the same in line parameters.
+
+Running make remakes both.
+
+We have included commented out code at the bottom of the main to print out the binary.

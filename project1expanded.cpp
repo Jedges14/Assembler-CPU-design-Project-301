@@ -120,7 +120,7 @@ int main(int argc, char* argv[]) {
         }
         infile.close();
     }
-    std::cout << "Phase1 instruction count: " << instruction_Line_Counter << std::endl;
+    // std::cout << "Phase1 instruction count: " << instruction_Line_Counter << std::endl;
 
 
     /** Phase 2
@@ -369,13 +369,16 @@ for (int i = 1; i < argc - 2; i++) {
 
         new_instruction_Line_Counter++;
     }
-    std :: cout << instructions.size() << std ::endl;
-    std::cout << "Phase3 instruction count: " << new_instruction_Line_Counter << std::endl;
+
+    //Assembler printing using readbytes
+
+    // std :: cout << instructions.size() << std ::endl;
+    // std::cout << "Phase3 instruction count: " << new_instruction_Line_Counter << std::endl;
 
     // Unccoment below to run readbytes
     // inst_outfile.close();
     // static_outfile.close();  
-    //     std::string filename = argv[argc-1];
+    //     std::string filename = argv[argc-2];
     // int buffer;
     // std::ifstream file(filename, std::ios::in | std::ios::binary);
     // while(file.read((char*) &buffer,sizeof(int))) {
