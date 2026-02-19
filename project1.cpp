@@ -265,7 +265,7 @@ for (int i = 1; i < argc - 2; i++) {
         }
 
         else if(inst_type=="beq"){
-            int val=symbol_dict.at(terms[3])-(new_instruction_Line_Counter);
+            int val=symbol_dict.at(terms[3])-(new_instruction_Line_Counter+1);
             // if(check16Bit(val)){
             write_binary(encode_Itype(4,registers[terms[1]],registers[terms[2]],val),inst_outfile);
             // }else{
@@ -276,7 +276,7 @@ for (int i = 1; i < argc - 2; i++) {
         }
 
         else if (inst_type == "bne"){
-            int val = symbol_dict.at(terms[3]) -(new_instruction_Line_Counter);
+            int val = symbol_dict.at(terms[3]) -(new_instruction_Line_Counter+1);
             std::cout<<val<<"  "<<new_instruction_Line_Counter<<std::endl;
             // if(check16Bit(val)){
             write_binary(encode_Itype(5,registers[terms[1]],registers[terms[2]],val),inst_outfile);
