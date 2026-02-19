@@ -5,8 +5,11 @@ The second file is called project1expanded.cpp and contains the code that expand
 We have edited the make file to create two diffrerent assemble objects.
 
 The first is called assemble and that runs the project1.cpp and otherwise takes in the same in line parameters.
+ex: ./assemble test2.asm staticmem_outfile.bin instructions_outfile.bin
 
 The second is called assemble_alt and that runs the project1expanded.cpp and otherwise takes in the same in line parameters.
+ex: ./assemble_alt test2.asm staticmem_outfile.bin instructions_outfile.bin
+
 
 Running make remakes both.
 
