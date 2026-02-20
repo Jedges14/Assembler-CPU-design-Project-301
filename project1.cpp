@@ -297,7 +297,12 @@ int main(int argc, char* argv[]) {
 
         else if (inst_type == "la"){
             int address = symbol_dict[terms[2]];
-            write_binary(encode_Itype(13,0,registers[terms[1]],address & 0xFFFF),inst_outfile); //perform an ori operation with bottom 16
+            //used to be this ORI that performs an ori operation with bottom 16 bits as changed it from handling >16
+            //changed to addi to match output bin file for test5, theoritically should be same 
+            //as memory starts at 0 and we can assume in 16 bits
+            // write_binary(encode_Itype(13,0,registers[terms[1]],address & 0xFFFF),inst_outfile); 
+            write_binary(encode_Itype(8, 0, registers[terms[1]], address & 0xFFFF),inst_outfile); //probably dont need &0xffff as it should be assumed to be 16 bits
+
         }
         else if (inst_type == "sgt") {
         write_binary(encode_Rtype(0,registers[terms[3]], registers[terms[2]], registers[terms[1]],0,42),inst_outfile);
@@ -344,16 +349,18 @@ int main(int argc, char* argv[]) {
     // std::cout << "Phase3 instruction count: " << new_instruction_Line_Counter << std::endl;
 
     // Unccoment below to run readbytes
-    // inst_outfile.close();
-    // static_outfile.close();  
-    //     std::string filename = argv[argc-1];
-    // int buffer;
-    // std::ifstream file(filename, std::ios::in | std::ios::binary);
-    // while(file.read((char*) &buffer,sizeof(int))) {
-    //     std::cout << std::bitset<32>(buffer) << " " << std::setfill('0') <<
-    //     std::setw(8) << std::hex << buffer << " " << std::dec << buffer << std::endl;
-    // }
-    // file.close();
+    inst_outfile.close();
+    static_outfile.close();  
+        std::string filename = argv[argc-1];
+        // std::string filename = "test5static.bin";
+
+    int buffer;
+    std::ifstream file(filename, std::ios::in | std::ios::binary);
+    while(file.read((char*) &buffer,sizeof(int))) {
+        std::cout << std::bitset<32>(buffer) << " " << std::setfill('0') <<
+        std::setw(8) << std::hex << buffer << " " << std::dec << buffer << std::endl;
+    }
+    file.close();
 }
 
 
