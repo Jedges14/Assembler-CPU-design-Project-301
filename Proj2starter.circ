@@ -1205,59 +1205,66 @@
     <comp lib="3" loc="(770,460)" name="Adder">
       <a name="width" val="16"/>
     </comp>
-    <comp lib="9" loc="(160,264)" name="Text">
+    <comp lib="9" loc="(160,260)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="OPCODE"/>
     </comp>
-    <comp lib="9" loc="(167,383)" name="Text">
+    <comp lib="9" loc="(165,380)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="SHAMT"/>
     </comp>
-    <comp lib="9" loc="(170,354)" name="Text">
-      <a name="font" val="SansSerif plain 12"/>
-      <a name="text" val="RD"/>
-    </comp>
-    <comp lib="9" loc="(174,324)" name="Text">
+    <comp lib="9" loc="(170,320)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="RT"/>
     </comp>
-    <comp lib="9" loc="(177,293)" name="Text">
+    <comp lib="9" loc="(170,350)" name="Text">
+      <a name="font" val="SansSerif plain 12"/>
+      <a name="text" val="RD"/>
+    </comp>
+    <comp lib="9" loc="(175,290)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="RS"/>
     </comp>
-    <comp lib="9" loc="(297,150)" name="Text">
+    <comp lib="9" loc="(295,150)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="Checks if R type, if opcode is 0 then instruction is R type if not I type"/>
     </comp>
-    <comp lib="9" loc="(502,354)" name="Text">
+    <comp lib="9" loc="(500,350)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="Concatanates Immediate Values"/>
     </comp>
-    <comp lib="9" loc="(787,438)" name="Text">
+    <comp lib="9" loc="(785,435)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="IMM Value"/>
     </comp>
-    <comp lib="9" loc="(872,406)" name="Text">
+    <comp lib="9" loc="(870,405)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="Outputs IMM if I type"/>
     </comp>
+    <comp loc="(1150,520)" name="OPcodeComparerWE"/>
     <wire from="(1000,450)" to="(1180,450)"/>
     <wire from="(1050,270)" to="(1050,360)"/>
     <wire from="(1050,360)" to="(1180,360)"/>
+    <wire from="(1150,520)" to="(1180,520)"/>
     <wire from="(1180,430)" to="(1180,450)"/>
     <wire from="(140,550)" to="(150,550)"/>
     <wire from="(150,420)" to="(150,550)"/>
     <wire from="(150,420)" to="(190,420)"/>
-    <wire from="(210,260)" to="(260,260)"/>
+    <wire from="(210,260)" to="(220,260)"/>
     <wire from="(210,290)" to="(240,290)"/>
     <wire from="(210,320)" to="(240,320)"/>
     <wire from="(210,350)" to="(310,350)"/>
     <wire from="(210,380)" to="(300,380)"/>
     <wire from="(210,410)" to="(260,410)"/>
+    <wire from="(220,260)" to="(220,520)"/>
+    <wire from="(220,260)" to="(260,260)"/>
+    <wire from="(220,520)" to="(930,520)"/>
     <wire from="(260,190)" to="(260,260)"/>
     <wire from="(260,190)" to="(310,190)"/>
     <wire from="(260,410)" to="(260,440)"/>
+    <wire from="(260,440)" to="(260,540)"/>
     <wire from="(260,440)" to="(280,440)"/>
+    <wire from="(260,540)" to="(930,540)"/>
     <wire from="(290,210)" to="(310,210)"/>
     <wire from="(300,380)" to="(300,400)"/>
     <wire from="(310,350)" to="(310,360)"/>
@@ -1299,5 +1306,183 @@
     <wire from="(940,470)" to="(980,470)"/>
     <wire from="(950,440)" to="(970,440)"/>
     <wire from="(980,460)" to="(980,470)"/>
+  </circuit>
+  <circuit name="OPcodeComparerWE">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="OPcodeComparerWE"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(1400,580)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="WE"/>
+      <a name="type" val="output"/>
+    </comp>
+    <comp lib="0" loc="(160,800)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="label" val="FUNC"/>
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="0" loc="(360,720)" name="Constant">
+      <a name="value" val="0x8"/>
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="0" loc="(360,770)" name="Constant">
+      <a name="value" val="0x18"/>
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="0" loc="(360,820)" name="Constant">
+      <a name="value" val="0x1a"/>
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="0" loc="(540,460)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="label" val="OP"/>
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="0" loc="(760,480)" name="Constant">
+      <a name="value" val="0x0"/>
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="0" loc="(780,200)" name="Constant">
+      <a name="value" val="0x2"/>
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="0" loc="(780,250)" name="Constant">
+      <a name="value" val="0x4"/>
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="0" loc="(780,300)" name="Constant">
+      <a name="value" val="0x5"/>
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="0" loc="(780,350)" name="Constant">
+      <a name="value" val="0xc"/>
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="0" loc="(780,400)" name="Constant">
+      <a name="value" val="0x2b"/>
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="1" loc="(1010,290)" name="OR Gate">
+      <a name="inputs" val="5"/>
+    </comp>
+    <comp lib="1" loc="(1380,580)" name="NOT Gate"/>
+    <comp lib="1" loc="(660,780)" name="OR Gate">
+      <a name="inputs" val="3"/>
+    </comp>
+    <comp lib="2" loc="(1210,580)" name="Multiplexer"/>
+    <comp lib="3" loc="(420,710)" name="Comparator">
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="3" loc="(420,760)" name="Comparator">
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="3" loc="(420,810)" name="Comparator">
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="3" loc="(820,470)" name="Comparator">
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="3" loc="(840,190)" name="Comparator">
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="3" loc="(840,240)" name="Comparator">
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="3" loc="(840,290)" name="Comparator">
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="3" loc="(840,340)" name="Comparator">
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="3" loc="(840,390)" name="Comparator">
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="9" loc="(1144,684)" name="Text">
+      <a name="font" val="SansSerif plain 12"/>
+      <a name="text" val="If opCode is 0 then we use output from logic based on func code"/>
+    </comp>
+    <comp lib="9" loc="(154,157)" name="Text">
+      <a name="font" val="SansSerif plain 12"/>
+      <a name="text" val="Done by referencing our truth table"/>
+    </comp>
+    <comp lib="9" loc="(1568,489)" name="Text">
+      <a name="font" val="SansSerif plain 12"/>
+      <a name="text" val="Negated as we are checking if WE is off and this cicuit should output if it is on"/>
+    </comp>
+    <comp lib="9" loc="(296,123)" name="Text">
+      <a name="font" val="SansSerif plain 12"/>
+      <a name="text" val="Less instructions have WE off so we will check for which ones dont need WE in this circuit"/>
+    </comp>
+    <comp lib="9" loc="(374,877)" name="Text">
+      <a name="font" val="SansSerif plain 12"/>
+      <a name="text" val="If func code is 8, 24,26 then WE off"/>
+    </comp>
+    <comp lib="9" loc="(889,136)" name="Text">
+      <a name="font" val="SansSerif plain 12"/>
+      <a name="text" val="we will check if 2,4,5,12,43 OP codes are present and if so those are the ones were WE is off"/>
+    </comp>
+    <wire from="(1010,290)" to="(1170,290)"/>
+    <wire from="(1170,290)" to="(1170,570)"/>
+    <wire from="(1170,570)" to="(1180,570)"/>
+    <wire from="(1170,590)" to="(1170,600)"/>
+    <wire from="(1170,590)" to="(1180,590)"/>
+    <wire from="(1190,600)" to="(1190,610)"/>
+    <wire from="(1210,580)" to="(1350,580)"/>
+    <wire from="(1380,580)" to="(1400,580)"/>
+    <wire from="(160,800)" to="(310,800)"/>
+    <wire from="(310,700)" to="(310,750)"/>
+    <wire from="(310,700)" to="(380,700)"/>
+    <wire from="(310,750)" to="(310,800)"/>
+    <wire from="(310,750)" to="(380,750)"/>
+    <wire from="(310,800)" to="(380,800)"/>
+    <wire from="(360,720)" to="(380,720)"/>
+    <wire from="(360,770)" to="(380,770)"/>
+    <wire from="(360,820)" to="(380,820)"/>
+    <wire from="(420,710)" to="(610,710)"/>
+    <wire from="(420,760)" to="(600,760)"/>
+    <wire from="(420,810)" to="(610,810)"/>
+    <wire from="(540,460)" to="(730,460)"/>
+    <wire from="(600,760)" to="(600,780)"/>
+    <wire from="(600,780)" to="(610,780)"/>
+    <wire from="(610,710)" to="(610,760)"/>
+    <wire from="(610,800)" to="(610,810)"/>
+    <wire from="(660,780)" to="(750,780)"/>
+    <wire from="(730,180)" to="(730,230)"/>
+    <wire from="(730,180)" to="(800,180)"/>
+    <wire from="(730,230)" to="(730,280)"/>
+    <wire from="(730,230)" to="(800,230)"/>
+    <wire from="(730,280)" to="(730,330)"/>
+    <wire from="(730,280)" to="(800,280)"/>
+    <wire from="(730,330)" to="(730,380)"/>
+    <wire from="(730,330)" to="(800,330)"/>
+    <wire from="(730,380)" to="(730,460)"/>
+    <wire from="(730,380)" to="(800,380)"/>
+    <wire from="(730,460)" to="(780,460)"/>
+    <wire from="(750,600)" to="(1170,600)"/>
+    <wire from="(750,600)" to="(750,780)"/>
+    <wire from="(760,480)" to="(780,480)"/>
+    <wire from="(780,200)" to="(800,200)"/>
+    <wire from="(780,250)" to="(800,250)"/>
+    <wire from="(780,300)" to="(800,300)"/>
+    <wire from="(780,350)" to="(800,350)"/>
+    <wire from="(780,400)" to="(800,400)"/>
+    <wire from="(820,470)" to="(840,470)"/>
+    <wire from="(840,190)" to="(950,190)"/>
+    <wire from="(840,240)" to="(940,240)"/>
+    <wire from="(840,290)" to="(960,290)"/>
+    <wire from="(840,340)" to="(920,340)"/>
+    <wire from="(840,390)" to="(930,390)"/>
+    <wire from="(840,470)" to="(840,610)"/>
+    <wire from="(840,610)" to="(1190,610)"/>
+    <wire from="(920,300)" to="(920,340)"/>
+    <wire from="(920,300)" to="(960,300)"/>
+    <wire from="(930,310)" to="(930,390)"/>
+    <wire from="(930,310)" to="(960,310)"/>
+    <wire from="(940,240)" to="(940,280)"/>
+    <wire from="(940,280)" to="(960,280)"/>
+    <wire from="(950,190)" to="(950,270)"/>
+    <wire from="(950,270)" to="(960,270)"/>
   </circuit>
 </project>
