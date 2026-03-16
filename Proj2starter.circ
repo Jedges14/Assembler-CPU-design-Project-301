@@ -94,9 +94,9 @@
       <a name="width" val="32"/>
     </comp>
     <comp loc="(1380,970)" name="regfile"/>
-    <comp loc="(1610,500)" name="Control"/>
+    <comp loc="(1540,500)" name="Control"/>
     <comp loc="(1970,990)" name="ALU"/>
-    <wire from="(1130,500)" to="(1390,500)"/>
+    <wire from="(1130,500)" to="(1320,500)"/>
     <wire from="(1220,1140)" to="(2060,1140)"/>
     <wire from="(1220,990)" to="(1220,1140)"/>
     <wire from="(1240,910)" to="(1240,930)"/>
@@ -109,28 +109,28 @@
     <wire from="(1360,890)" to="(1700,890)"/>
     <wire from="(1380,1010)" to="(1590,1010)"/>
     <wire from="(1380,970)" to="(1840,970)"/>
+    <wire from="(1540,500)" to="(1660,500)"/>
+    <wire from="(1540,520)" to="(1690,520)"/>
+    <wire from="(1540,540)" to="(1700,540)"/>
+    <wire from="(1540,560)" to="(1710,560)"/>
+    <wire from="(1540,580)" to="(1670,580)"/>
+    <wire from="(1540,600)" to="(1680,600)"/>
+    <wire from="(1540,620)" to="(1910,620)"/>
     <wire from="(1590,1000)" to="(1590,1010)"/>
     <wire from="(1590,1000)" to="(1640,1000)"/>
     <wire from="(1610,1030)" to="(1650,1030)"/>
-    <wire from="(1610,500)" to="(1690,500)"/>
-    <wire from="(1610,520)" to="(1700,520)"/>
-    <wire from="(1610,540)" to="(1710,540)"/>
-    <wire from="(1610,560)" to="(1670,560)"/>
-    <wire from="(1610,580)" to="(1680,580)"/>
-    <wire from="(1610,600)" to="(1660,600)"/>
-    <wire from="(1610,620)" to="(1910,620)"/>
     <wire from="(1610,930)" to="(1610,1030)"/>
     <wire from="(1610,930)" to="(1660,930)"/>
     <wire from="(1630,1020)" to="(1640,1020)"/>
     <wire from="(1630,940)" to="(1630,1020)"/>
     <wire from="(1630,940)" to="(1670,940)"/>
-    <wire from="(1660,600)" to="(1660,930)"/>
+    <wire from="(1660,500)" to="(1660,930)"/>
     <wire from="(1670,1010)" to="(1840,1010)"/>
-    <wire from="(1670,560)" to="(1670,940)"/>
-    <wire from="(1680,580)" to="(1680,910)"/>
-    <wire from="(1690,500)" to="(1690,900)"/>
-    <wire from="(1700,520)" to="(1700,890)"/>
-    <wire from="(1710,540)" to="(1710,880)"/>
+    <wire from="(1670,580)" to="(1670,940)"/>
+    <wire from="(1680,600)" to="(1680,910)"/>
+    <wire from="(1690,520)" to="(1690,900)"/>
+    <wire from="(1700,540)" to="(1700,890)"/>
+    <wire from="(1710,560)" to="(1710,880)"/>
     <wire from="(1910,620)" to="(1910,930)"/>
     <wire from="(1970,990)" to="(2060,990)"/>
     <wire from="(2060,990)" to="(2060,1140)"/>
@@ -1048,13 +1048,13 @@
     <appear>
       <rect fill="none" height="84" stroke="#000000" width="100" x="170" y="50"/>
       <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="194" y="124">Hello</text>
-      <circ-anchor facing="east" x="270" y="60"/>
+      <circ-anchor facing="east" x="270" y="130"/>
       <circ-port dir="in" pin="140,550" x="200" y="50"/>
       <circ-port dir="out" pin="1180,360" x="270" y="80"/>
       <circ-port dir="out" pin="1180,430" x="270" y="90"/>
       <circ-port dir="out" pin="1180,520" x="270" y="100"/>
       <circ-port dir="out" pin="1180,720" x="270" y="120"/>
-      <circ-port dir="out" pin="240,290" x="270" y="130"/>
+      <circ-port dir="out" pin="240,290" x="270" y="60"/>
       <circ-port dir="out" pin="240,320" x="270" y="70"/>
       <circ-port dir="out" pin="450,200" x="270" y="110"/>
     </appear>
