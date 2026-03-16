@@ -1022,10 +1022,26 @@
       <circ-port dir="in" pin="170,50" x="50" y="100"/>
       <circ-port dir="out" pin="1880,530" x="180" y="120"/>
     </appear>
+    <comp lib="0" loc="(1120,600)" name="Clock">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="north"/>
+    </comp>
+    <comp lib="0" loc="(1160,460)" name="Clock">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="north"/>
+    </comp>
     <comp lib="0" loc="(150,350)" name="Pin">
       <a name="appearance" val="NewPins"/>
       <a name="label" val="ALU_CODE"/>
-      <a name="width" val="3"/>
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="0" loc="(150,350)" name="Splitter">
+      <a name="bit1" val="0"/>
+      <a name="bit2" val="0"/>
+      <a name="bit3" val="1"/>
+      <a name="bit4" val="2"/>
+      <a name="fanout" val="3"/>
+      <a name="incoming" val="5"/>
     </comp>
     <comp lib="0" loc="(160,100)" name="Pin">
       <a name="appearance" val="NewPins"/>
@@ -1059,49 +1075,7 @@
       <a name="in_width" val="1"/>
       <a name="out_width" val="32"/>
     </comp>
-    <comp lib="0" loc="(530,420)" name="Splitter">
-      <a name="bit0" val="1"/>
-      <a name="bit10" val="1"/>
-      <a name="bit11" val="1"/>
-      <a name="bit12" val="1"/>
-      <a name="bit13" val="1"/>
-      <a name="bit14" val="1"/>
-      <a name="bit15" val="1"/>
-      <a name="bit16" val="0"/>
-      <a name="bit17" val="0"/>
-      <a name="bit18" val="0"/>
-      <a name="bit19" val="0"/>
-      <a name="bit2" val="1"/>
-      <a name="bit20" val="0"/>
-      <a name="bit21" val="0"/>
-      <a name="bit22" val="0"/>
-      <a name="bit23" val="0"/>
-      <a name="bit24" val="0"/>
-      <a name="bit25" val="0"/>
-      <a name="bit26" val="0"/>
-      <a name="bit27" val="0"/>
-      <a name="bit28" val="0"/>
-      <a name="bit29" val="0"/>
-      <a name="bit3" val="1"/>
-      <a name="bit30" val="0"/>
-      <a name="bit31" val="0"/>
-      <a name="bit4" val="1"/>
-      <a name="bit5" val="1"/>
-      <a name="bit6" val="1"/>
-      <a name="bit7" val="1"/>
-      <a name="bit8" val="1"/>
-      <a name="bit9" val="1"/>
-      <a name="incoming" val="32"/>
-    </comp>
-    <comp lib="0" loc="(850,380)" name="Bit Extender">
-      <a name="in_width" val="16"/>
-      <a name="out_width" val="32"/>
-    </comp>
-    <comp lib="0" loc="(860,530)" name="Bit Extender">
-      <a name="in_width" val="16"/>
-      <a name="out_width" val="32"/>
-    </comp>
-    <comp lib="2" loc="(1060,400)" name="Multiplexer">
+    <comp lib="2" loc="(1070,400)" name="Multiplexer">
       <a name="width" val="32"/>
     </comp>
     <comp lib="2" loc="(1810,530)" name="Multiplexer">
@@ -1143,7 +1117,13 @@
       <a name="label" val="HI"/>
       <a name="width" val="32"/>
     </comp>
-    <wire from="(1060,400)" to="(1160,400)"/>
+    <wire from="(1050,420)" to="(1050,940)"/>
+    <wire from="(1070,400)" to="(1160,400)"/>
+    <wire from="(1070,450)" to="(1070,970)"/>
+    <wire from="(1070,450)" to="(1170,450)"/>
+    <wire from="(1070,970)" to="(1090,970)"/>
+    <wire from="(1090,590)" to="(1090,970)"/>
+    <wire from="(1090,590)" to="(1130,590)"/>
     <wire from="(1160,400)" to="(1160,430)"/>
     <wire from="(1160,430)" to="(1170,430)"/>
     <wire from="(1190,570)" to="(1210,570)"/>
@@ -1152,7 +1132,6 @@
     <wire from="(1230,430)" to="(1270,430)"/>
     <wire from="(1270,430)" to="(1270,510)"/>
     <wire from="(1270,510)" to="(1770,510)"/>
-    <wire from="(150,350)" to="(190,350)"/>
     <wire from="(1540,320)" to="(1540,500)"/>
     <wire from="(1540,500)" to="(1770,500)"/>
     <wire from="(1540,530)" to="(1540,700)"/>
@@ -1166,10 +1145,16 @@
     <wire from="(1600,550)" to="(1770,550)"/>
     <wire from="(1620,560)" to="(1620,820)"/>
     <wire from="(1620,560)" to="(1770,560)"/>
+    <wire from="(170,320)" to="(190,320)"/>
+    <wire from="(170,330)" to="(180,330)"/>
+    <wire from="(170,340)" to="(170,970)"/>
     <wire from="(170,50)" to="(310,50)"/>
+    <wire from="(170,970)" to="(1070,970)"/>
     <wire from="(1790,570)" to="(1790,870)"/>
+    <wire from="(180,330)" to="(180,940)"/>
+    <wire from="(180,940)" to="(960,940)"/>
     <wire from="(1810,530)" to="(1880,530)"/>
-    <wire from="(190,350)" to="(190,870)"/>
+    <wire from="(190,320)" to="(190,870)"/>
     <wire from="(190,870)" to="(1790,870)"/>
     <wire from="(240,640)" to="(240,760)"/>
     <wire from="(240,640)" to="(270,640)"/>
@@ -1211,38 +1196,36 @@
     <wire from="(420,660)" to="(450,660)"/>
     <wire from="(470,590)" to="(850,590)"/>
     <wire from="(490,660)" to="(830,660)"/>
+    <wire from="(500,440)" to="(500,450)"/>
+    <wire from="(500,450)" to="(550,450)"/>
     <wire from="(500,540)" to="(500,560)"/>
     <wire from="(500,560)" to="(780,560)"/>
     <wire from="(520,210)" to="(1560,210)"/>
     <wire from="(520,320)" to="(1540,320)"/>
-    <wire from="(520,420)" to="(530,420)"/>
+    <wire from="(520,420)" to="(750,420)"/>
     <wire from="(520,520)" to="(800,520)"/>
     <wire from="(520,730)" to="(810,730)"/>
     <wire from="(520,820)" to="(1620,820)"/>
+    <wire from="(550,400)" to="(550,450)"/>
     <wire from="(550,400)" to="(680,400)"/>
-    <wire from="(550,410)" to="(750,410)"/>
+    <wire from="(680,390)" to="(1040,390)"/>
     <wire from="(680,390)" to="(680,400)"/>
-    <wire from="(680,390)" to="(800,390)"/>
-    <wire from="(750,410)" to="(750,530)"/>
-    <wire from="(750,530)" to="(820,530)"/>
-    <wire from="(780,410)" to="(1030,410)"/>
+    <wire from="(750,420)" to="(750,530)"/>
+    <wire from="(750,530)" to="(870,530)"/>
+    <wire from="(780,410)" to="(1040,410)"/>
     <wire from="(780,410)" to="(780,560)"/>
-    <wire from="(800,380)" to="(800,390)"/>
-    <wire from="(800,380)" to="(810,380)"/>
     <wire from="(800,520)" to="(800,580)"/>
     <wire from="(800,580)" to="(950,580)"/>
     <wire from="(810,730)" to="(810,750)"/>
     <wire from="(810,750)" to="(1600,750)"/>
     <wire from="(830,660)" to="(830,730)"/>
     <wire from="(830,730)" to="(1570,730)"/>
-    <wire from="(850,380)" to="(860,380)"/>
     <wire from="(850,590)" to="(850,700)"/>
     <wire from="(850,700)" to="(1540,700)"/>
-    <wire from="(860,380)" to="(860,390)"/>
-    <wire from="(860,390)" to="(1030,390)"/>
-    <wire from="(860,530)" to="(870,530)"/>
     <wire from="(870,530)" to="(870,560)"/>
     <wire from="(870,560)" to="(950,560)"/>
+    <wire from="(960,590)" to="(960,940)"/>
+    <wire from="(960,940)" to="(1050,940)"/>
     <wire from="(980,570)" to="(1130,570)"/>
   </circuit>
   <circuit name="Control">
@@ -1289,7 +1272,7 @@
       <a name="facing" val="west"/>
       <a name="label" val="ALU_code"/>
       <a name="type" val="output"/>
-      <a name="width" val="5"/>
+      <a name="width" val="3"/>
     </comp>
     <comp lib="0" loc="(140,550)" name="Pin">
       <a name="appearance" val="NewPins"/>
@@ -1605,27 +1588,27 @@
     <comp lib="3" loc="(840,390)" name="Comparator">
       <a name="width" val="6"/>
     </comp>
-    <comp lib="9" loc="(1144,684)" name="Text">
+    <comp lib="9" loc="(1140,680)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="If opCode is 0 then we use output from logic based on func code"/>
     </comp>
-    <comp lib="9" loc="(154,157)" name="Text">
+    <comp lib="9" loc="(150,155)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="Done by referencing our truth table"/>
     </comp>
-    <comp lib="9" loc="(1568,489)" name="Text">
+    <comp lib="9" loc="(1565,485)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="Negated as we are checking if WE is off and this cicuit should output if it is on"/>
     </comp>
-    <comp lib="9" loc="(296,123)" name="Text">
+    <comp lib="9" loc="(300,120)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="Less instructions have WE off so we will check for which ones dont need WE in this circuit"/>
     </comp>
-    <comp lib="9" loc="(374,877)" name="Text">
+    <comp lib="9" loc="(370,875)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="If func code is 8, 24,26 then WE off"/>
     </comp>
-    <comp lib="9" loc="(889,136)" name="Text">
+    <comp lib="9" loc="(885,135)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="we will check if 2,4,5,12,43 OP codes are present and if so those are the ones were WE is off"/>
     </comp>
@@ -1759,7 +1742,7 @@
     <comp lib="3" loc="(480,560)" name="Comparator">
       <a name="width" val="6"/>
     </comp>
-    <comp lib="9" loc="(273,154)" name="Text">
+    <comp lib="9" loc="(270,150)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="If opCode is 0 then all information needed is stored in funcCode (R type)"/>
     </comp>
