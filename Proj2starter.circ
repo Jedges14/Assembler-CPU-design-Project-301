@@ -1369,7 +1369,9 @@
       <circ-port dir="out" pin="1180,360" x="270" y="80"/>
       <circ-port dir="out" pin="1180,430" x="270" y="90"/>
       <circ-port dir="out" pin="1180,520" x="270" y="100"/>
+      <circ-port dir="out" pin="1180,820" x="270" y="130"/>
       <circ-port dir="out" pin="1190,620" x="270" y="120"/>
+      <circ-port dir="out" pin="1190,910" x="270" y="140"/>
       <circ-port dir="out" pin="240,290" x="270" y="60"/>
       <circ-port dir="out" pin="240,320" x="270" y="70"/>
       <circ-port dir="out" pin="450,200" x="270" y="110"/>
@@ -1395,12 +1397,24 @@
       <a name="label" val="reg_write_e"/>
       <a name="type" val="output"/>
     </comp>
+    <comp lib="0" loc="(1180,820)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="MemWE"/>
+      <a name="type" val="output"/>
+    </comp>
     <comp lib="0" loc="(1190,620)" name="Pin">
       <a name="appearance" val="NewPins"/>
       <a name="facing" val="west"/>
       <a name="label" val="ALU_code"/>
       <a name="type" val="output"/>
       <a name="width" val="5"/>
+    </comp>
+    <comp lib="0" loc="(1190,910)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="DataOutPlexer"/>
+      <a name="type" val="output"/>
     </comp>
     <comp lib="0" loc="(140,550)" name="Pin">
       <a name="appearance" val="NewPins"/>
@@ -2148,17 +2162,25 @@
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="SRL"/>
     </comp>
+    <comp lib="9" loc="(450,1480)" name="Text">
+      <a name="font" val="SansSerif plain 12"/>
+      <a name="text" val="XOR"/>
+    </comp>
     <comp lib="9" loc="(450,945)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="SUB"/>
     </comp>
-    <comp lib="9" loc="(454,1483)" name="Text">
-      <a name="font" val="SansSerif plain 12"/>
-      <a name="text" val="XOR"/>
-    </comp>
     <comp lib="9" loc="(455,1090)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="MULT"/>
+    </comp>
+    <comp lib="9" loc="(455,1430)" name="Text">
+      <a name="font" val="SansSerif plain 12"/>
+      <a name="text" val="OR"/>
+    </comp>
+    <comp lib="9" loc="(455,1530)" name="Text">
+      <a name="font" val="SansSerif plain 12"/>
+      <a name="text" val="NOR"/>
     </comp>
     <comp lib="9" loc="(455,885)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
@@ -2168,55 +2190,47 @@
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="MFHI"/>
     </comp>
-    <comp lib="9" loc="(458,1430)" name="Text">
-      <a name="font" val="SansSerif plain 12"/>
-      <a name="text" val="OR"/>
-    </comp>
-    <comp lib="9" loc="(458,1530)" name="Text">
-      <a name="font" val="SansSerif plain 12"/>
-      <a name="text" val="NOR"/>
-    </comp>
     <comp lib="9" loc="(460,1045)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="MFLO"/>
     </comp>
-    <comp lib="9" loc="(461,1380)" name="Text">
+    <comp lib="9" loc="(460,1380)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="AND"/>
     </comp>
-    <comp lib="9" loc="(572,314)" name="Text">
+    <comp lib="9" loc="(570,210)" name="Text">
+      <a name="font" val="SansSerif plain 12"/>
+      <a name="text" val="LW"/>
+    </comp>
+    <comp lib="9" loc="(570,310)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="LUI"/>
     </comp>
-    <comp lib="9" loc="(574,210)" name="Text">
+    <comp lib="9" loc="(575,160)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
-      <a name="text" val="LW"/>
+      <a name="text" val="ADDI"/>
     </comp>
     <comp lib="9" loc="(575,265)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="SW"/>
     </comp>
-    <comp lib="9" loc="(575,364)" name="Text">
+    <comp lib="9" loc="(575,360)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="ORI"/>
     </comp>
-    <comp lib="9" loc="(575,474)" name="Text">
-      <a name="font" val="SansSerif plain 12"/>
-      <a name="text" val="BNE"/>
-    </comp>
-    <comp lib="9" loc="(576,423)" name="Text">
+    <comp lib="9" loc="(575,420)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="BEQ"/>
     </comp>
-    <comp lib="9" loc="(577,162)" name="Text">
+    <comp lib="9" loc="(575,470)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
-      <a name="text" val="ADDI"/>
+      <a name="text" val="BNE"/>
     </comp>
-    <comp lib="9" loc="(578,516)" name="Text">
+    <comp lib="9" loc="(575,515)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="ANDI"/>
     </comp>
-    <comp lib="9" loc="(585,576)" name="Text">
+    <comp lib="9" loc="(585,575)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="XORI"/>
     </comp>
