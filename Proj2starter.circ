@@ -200,6 +200,7 @@
     <wire from="(1900,1220)" to="(2060,1220)"/>
     <wire from="(1900,1240)" to="(2730,1240)"/>
     <wire from="(1910,620)" to="(1910,930)"/>
+    <wire from="(1970,1000)" to="(1990,1000)"/>
     <wire from="(1970,990)" to="(2060,990)"/>
     <wire from="(2060,170)" to="(2060,990)"/>
     <wire from="(2060,170)" to="(2110,170)"/>
@@ -1071,6 +1072,7 @@
       <circ-port dir="in" pin="170,350" x="120" y="60"/>
       <circ-port dir="in" pin="170,50" x="50" y="100"/>
       <circ-port dir="out" pin="1950,490" x="180" y="120"/>
+      <circ-port dir="out" pin="1970,850" x="180" y="130"/>
     </appear>
     <comp lib="0" loc="(1030,610)" name="Tunnel">
       <a name="facing" val="east"/>
@@ -1123,6 +1125,13 @@
       <a name="radix" val="16"/>
       <a name="type" val="output"/>
       <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(1970,850)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="Is_equal"/>
+      <a name="radix" val="16"/>
+      <a name="type" val="output"/>
     </comp>
     <comp lib="0" loc="(300,760)" name="Bit Extender">
       <a name="in_width" val="32"/>
@@ -1253,6 +1262,8 @@
     <wire from="(1700,470)" to="(1870,470)"/>
     <wire from="(1740,480)" to="(1740,1120)"/>
     <wire from="(1740,480)" to="(1870,480)"/>
+    <wire from="(1790,850)" to="(1790,990)"/>
+    <wire from="(1790,850)" to="(1970,850)"/>
     <wire from="(1890,650)" to="(1890,690)"/>
     <wire from="(1910,490)" to="(1950,490)"/>
     <wire from="(240,640)" to="(240,760)"/>
@@ -1322,7 +1333,10 @@
     <wire from="(520,520)" to="(800,520)"/>
     <wire from="(520,730)" to="(810,730)"/>
     <wire from="(520,820)" to="(1560,820)"/>
-    <wire from="(520,870)" to="(560,870)"/>
+    <wire from="(520,870)" to="(540,870)"/>
+    <wire from="(540,870)" to="(540,990)"/>
+    <wire from="(540,870)" to="(560,870)"/>
+    <wire from="(540,990)" to="(1790,990)"/>
     <wire from="(550,1030)" to="(1680,1030)"/>
     <wire from="(550,1030)" to="(550,1120)"/>
     <wire from="(550,1120)" to="(580,1120)"/>
