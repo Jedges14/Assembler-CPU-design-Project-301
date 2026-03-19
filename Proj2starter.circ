@@ -238,9 +238,9 @@
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="deciding when we store pc"/>
     </comp>
-    <comp lib="9" loc="(155,745)" name="Text">
+    <comp lib="9" loc="(160,1053)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
-      <a name="text" val="Is qual wire form alu may need AND with branch select?"/>
+      <a name="text" val="Also decide which branch it is and convert output if neded"/>
     </comp>
     <comp lib="9" loc="(1870,1290)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
@@ -266,10 +266,6 @@
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="Jump/jal"/>
     </comp>
-    <comp lib="9" loc="(5,775)" name="Text">
-      <a name="font" val="SansSerif plain 12"/>
-      <a name="text" val="Also decide which branch it is and convert output if neded"/>
-    </comp>
     <comp lib="9" loc="(560,220)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="Offset for branches"/>
@@ -292,6 +288,8 @@
     <comp loc="(400,280)" name="BranchPCselect"/>
     <wire from="(1070,310)" to="(1070,500)"/>
     <wire from="(1070,500)" to="(1320,500)"/>
+    <wire from="(1100,810)" to="(1100,1200)"/>
+    <wire from="(1100,810)" to="(1540,810)"/>
     <wire from="(1120,830)" to="(1120,1140)"/>
     <wire from="(1120,830)" to="(1580,830)"/>
     <wire from="(1220,1060)" to="(1330,1060)"/>
@@ -308,7 +306,6 @@
     <wire from="(1290,850)" to="(1290,880)"/>
     <wire from="(1290,850)" to="(1330,850)"/>
     <wire from="(1290,880)" to="(1710,880)"/>
-    <wire from="(1300,1120)" to="(1300,1260)"/>
     <wire from="(1300,1120)" to="(1570,1120)"/>
     <wire from="(1320,1100)" to="(1330,1100)"/>
     <wire from="(1330,1060)" to="(1330,1100)"/>
@@ -343,6 +340,7 @@
     <wire from="(1540,680)" to="(1580,680)"/>
     <wire from="(1540,700)" to="(1570,700)"/>
     <wire from="(1540,720)" to="(1580,720)"/>
+    <wire from="(1540,740)" to="(1540,810)"/>
     <wire from="(1550,240)" to="(1550,560)"/>
     <wire from="(1550,560)" to="(1670,560)"/>
     <wire from="(1560,1250)" to="(1890,1250)"/>
@@ -398,14 +396,14 @@
     <wire from="(320,1550)" to="(1440,1550)"/>
     <wire from="(320,580)" to="(320,1550)"/>
     <wire from="(320,580)" to="(440,580)"/>
-    <wire from="(380,1260)" to="(1300,1260)"/>
-    <wire from="(380,610)" to="(380,1260)"/>
-    <wire from="(380,610)" to="(450,610)"/>
     <wire from="(390,140)" to="(410,140)"/>
     <wire from="(400,280)" to="(440,280)"/>
     <wire from="(400,310)" to="(400,510)"/>
     <wire from="(400,310)" to="(460,310)"/>
+    <wire from="(410,1200)" to="(1100,1200)"/>
     <wire from="(410,140)" to="(410,220)"/>
+    <wire from="(410,640)" to="(410,1200)"/>
+    <wire from="(410,640)" to="(450,640)"/>
     <wire from="(420,600)" to="(420,770)"/>
     <wire from="(420,600)" to="(440,600)"/>
     <wire from="(420,770)" to="(540,770)"/>
@@ -419,6 +417,7 @@
     <wire from="(450,340)" to="(450,550)"/>
     <wire from="(450,340)" to="(570,340)"/>
     <wire from="(450,550)" to="(610,550)"/>
+    <wire from="(450,610)" to="(450,640)"/>
     <wire from="(470,590)" to="(480,590)"/>
     <wire from="(480,330)" to="(480,590)"/>
     <wire from="(480,330)" to="(560,330)"/>
@@ -1661,6 +1660,7 @@
       <circ-port dir="out" pin="1190,910" x="270" y="140"/>
       <circ-port dir="out" pin="1200,1180" x="270" y="160"/>
       <circ-port dir="out" pin="1210,1340" x="270" y="170"/>
+      <circ-port dir="out" pin="1220,1490" x="270" y="180"/>
       <circ-port dir="out" pin="1240,360" x="270" y="80"/>
       <circ-port dir="out" pin="1830,460" x="270" y="90"/>
       <circ-port dir="out" pin="260,390" x="270" y="60"/>
@@ -1716,6 +1716,12 @@
       <a name="appearance" val="NewPins"/>
       <a name="facing" val="west"/>
       <a name="label" val="ALLJUMPSelect"/>
+      <a name="type" val="output"/>
+    </comp>
+    <comp lib="0" loc="(1220,1490)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="JumpJALSelect"/>
       <a name="type" val="output"/>
     </comp>
     <comp lib="0" loc="(1240,360)" name="Pin">
@@ -1843,7 +1849,7 @@
       <a name="width" val="6"/>
     </comp>
     <comp lib="0" loc="(930,1160)" name="Constant">
-      <a name="value" val="0xb"/>
+      <a name="value" val="0x3"/>
       <a name="width" val="6"/>
     </comp>
     <comp lib="0" loc="(930,1230)" name="Constant">
@@ -1877,6 +1883,7 @@
     <comp lib="1" loc="(1110,1180)" name="OR Gate"/>
     <comp lib="1" loc="(1140,1000)" name="OR Gate"/>
     <comp lib="1" loc="(1140,1340)" name="OR Gate"/>
+    <comp lib="1" loc="(1190,1490)" name="OR Gate"/>
     <comp lib="1" loc="(1200,1270)" name="OR Gate"/>
     <comp lib="1" loc="(1610,410)" name="OR Gate"/>
     <comp lib="1" loc="(430,200)" name="NOT Gate"/>
@@ -1972,19 +1979,25 @@
     <comp loc="(1110,620)" name="ALUCodeAssigner"/>
     <comp loc="(1150,520)" name="OPcodeComparerWE"/>
     <wire from="(1020,890)" to="(1190,890)"/>
-    <wire from="(1030,1150)" to="(1060,1150)"/>
+    <wire from="(1030,1150)" to="(1050,1150)"/>
     <wire from="(1030,1220)" to="(1060,1220)"/>
     <wire from="(1030,400)" to="(1070,400)"/>
     <wire from="(1040,1310)" to="(1090,1310)"/>
-    <wire from="(1040,1380)" to="(1090,1380)"/>
+    <wire from="(1040,1380)" to="(1070,1380)"/>
     <wire from="(1040,250)" to="(1040,380)"/>
     <wire from="(1040,380)" to="(1070,380)"/>
+    <wire from="(1050,1150)" to="(1050,1470)"/>
+    <wire from="(1050,1150)" to="(1060,1150)"/>
+    <wire from="(1050,1470)" to="(1140,1470)"/>
     <wire from="(1050,270)" to="(1050,350)"/>
     <wire from="(1050,350)" to="(1170,350)"/>
     <wire from="(1060,1040)" to="(1090,1040)"/>
     <wire from="(1060,1150)" to="(1060,1160)"/>
     <wire from="(1060,1200)" to="(1060,1220)"/>
     <wire from="(1060,970)" to="(1090,970)"/>
+    <wire from="(1070,1380)" to="(1070,1510)"/>
+    <wire from="(1070,1380)" to="(1090,1380)"/>
+    <wire from="(1070,1510)" to="(1140,1510)"/>
     <wire from="(1090,1020)" to="(1090,1040)"/>
     <wire from="(1090,1310)" to="(1090,1320)"/>
     <wire from="(1090,1360)" to="(1090,1380)"/>
@@ -2006,6 +2019,7 @@
     <wire from="(1160,370)" to="(1170,370)"/>
     <wire from="(1180,380)" to="(1180,390)"/>
     <wire from="(1180,800)" to="(1180,820)"/>
+    <wire from="(1190,1490)" to="(1220,1490)"/>
     <wire from="(1190,890)" to="(1190,910)"/>
     <wire from="(120,210)" to="(120,270)"/>
     <wire from="(120,270)" to="(200,270)"/>
