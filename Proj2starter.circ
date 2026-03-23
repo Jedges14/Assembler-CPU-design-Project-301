@@ -355,16 +355,15 @@
     <wire from="(1540,620)" to="(1700,620)"/>
     <wire from="(1540,640)" to="(2140,640)"/>
     <wire from="(1540,660)" to="(1560,660)"/>
-    <wire from="(1540,680)" to="(1580,680)"/>
-    <wire from="(1540,700)" to="(1570,700)"/>
-    <wire from="(1540,720)" to="(1580,720)"/>
-    <wire from="(1540,740)" to="(1540,810)"/>
+    <wire from="(1540,680)" to="(1570,680)"/>
+    <wire from="(1540,700)" to="(1580,700)"/>
+    <wire from="(1540,720)" to="(1540,810)"/>
     <wire from="(1550,240)" to="(1550,560)"/>
     <wire from="(1550,560)" to="(1670,560)"/>
     <wire from="(1560,1250)" to="(1890,1250)"/>
     <wire from="(1560,660)" to="(1560,1250)"/>
-    <wire from="(1570,700)" to="(1570,1120)"/>
-    <wire from="(1580,720)" to="(1580,830)"/>
+    <wire from="(1570,680)" to="(1570,1120)"/>
+    <wire from="(1580,700)" to="(1580,830)"/>
     <wire from="(1610,1030)" to="(1650,1030)"/>
     <wire from="(1610,930)" to="(1610,1030)"/>
     <wire from="(1610,930)" to="(1660,930)"/>
@@ -1682,7 +1681,6 @@
       <circ-port dir="in" pin="140,680" x="200" y="50"/>
       <circ-port dir="out" pin="1180,520" x="270" y="100"/>
       <circ-port dir="out" pin="1180,820" x="270" y="130"/>
-      <circ-port dir="out" pin="1190,1020" x="270" y="150"/>
       <circ-port dir="out" pin="1190,620" x="270" y="120"/>
       <circ-port dir="out" pin="1190,910" x="270" y="140"/>
       <circ-port dir="out" pin="1200,1180" x="270" y="160"/>
@@ -1720,12 +1718,6 @@
       <a name="appearance" val="NewPins"/>
       <a name="facing" val="west"/>
       <a name="label" val="MemWE"/>
-      <a name="type" val="output"/>
-    </comp>
-    <comp lib="0" loc="(1190,1020)" name="Pin">
-      <a name="appearance" val="NewPins"/>
-      <a name="facing" val="west"/>
-      <a name="label" val="branchSelect"/>
       <a name="type" val="output"/>
     </comp>
     <comp lib="0" loc="(1190,620)" name="Pin">
@@ -1918,21 +1910,12 @@
       <a name="value" val="0x2"/>
       <a name="width" val="6"/>
     </comp>
-    <comp lib="0" loc="(960,1050)" name="Constant">
-      <a name="value" val="0x5"/>
-      <a name="width" val="6"/>
-    </comp>
     <comp lib="0" loc="(960,1270)" name="Tunnel">
       <a name="label" val="funcode"/>
       <a name="width" val="6"/>
     </comp>
-    <comp lib="0" loc="(960,980)" name="Constant">
-      <a name="value" val="0x4"/>
-      <a name="width" val="6"/>
-    </comp>
     <comp lib="1" loc="(1110,1180)" name="OR Gate"/>
     <comp lib="1" loc="(1120,1280)" name="AND Gate"/>
-    <comp lib="1" loc="(1140,1000)" name="OR Gate"/>
     <comp lib="1" loc="(1140,1340)" name="OR Gate"/>
     <comp lib="1" loc="(1150,1120)" name="AND Gate"/>
     <comp lib="1" loc="(1190,1490)" name="OR Gate"/>
@@ -1965,12 +1948,6 @@
       <a name="width" val="6"/>
     </comp>
     <comp lib="3" loc="(1040,1380)" name="Comparator">
-      <a name="width" val="6"/>
-    </comp>
-    <comp lib="3" loc="(1060,1040)" name="Comparator">
-      <a name="width" val="6"/>
-    </comp>
-    <comp lib="3" loc="(1060,970)" name="Comparator">
       <a name="width" val="6"/>
     </comp>
     <comp lib="3" loc="(1110,390)" name="Comparator">
@@ -2057,22 +2034,18 @@
     <wire from="(1050,1470)" to="(1140,1470)"/>
     <wire from="(1050,270)" to="(1050,350)"/>
     <wire from="(1050,350)" to="(1170,350)"/>
-    <wire from="(1060,1040)" to="(1090,1040)"/>
     <wire from="(1060,1160)" to="(1150,1160)"/>
     <wire from="(1060,1200)" to="(1060,1220)"/>
     <wire from="(1060,1250)" to="(1070,1250)"/>
-    <wire from="(1060,970)" to="(1090,970)"/>
     <wire from="(1070,1250)" to="(1070,1260)"/>
     <wire from="(1070,1300)" to="(1070,1310)"/>
     <wire from="(1070,1380)" to="(1070,1510)"/>
     <wire from="(1070,1380)" to="(1090,1380)"/>
     <wire from="(1070,1510)" to="(1140,1510)"/>
-    <wire from="(1090,1020)" to="(1090,1040)"/>
     <wire from="(1090,1090)" to="(1100,1090)"/>
     <wire from="(1090,1310)" to="(1090,1320)"/>
     <wire from="(1090,1320)" to="(1130,1320)"/>
     <wire from="(1090,1360)" to="(1090,1380)"/>
-    <wire from="(1090,970)" to="(1090,980)"/>
     <wire from="(110,390)" to="(110,610)"/>
     <wire from="(110,610)" to="(180,610)"/>
     <wire from="(1100,1090)" to="(1100,1100)"/>
@@ -2085,8 +2058,6 @@
     <wire from="(1110,620)" to="(1190,620)"/>
     <wire from="(1120,1280)" to="(1130,1280)"/>
     <wire from="(1130,1280)" to="(1130,1320)"/>
-    <wire from="(1140,1000)" to="(1140,1020)"/>
-    <wire from="(1140,1020)" to="(1190,1020)"/>
     <wire from="(1140,1290)" to="(1140,1340)"/>
     <wire from="(1140,1290)" to="(1150,1290)"/>
     <wire from="(1150,1120)" to="(1150,1160)"/>
@@ -2227,7 +2198,6 @@
     <wire from="(70,440)" to="(150,440)"/>
     <wire from="(740,450)" to="(1630,450)"/>
     <wire from="(810,1020)" to="(810,1210)"/>
-    <wire from="(810,1020)" to="(890,1020)"/>
     <wire from="(810,1210)" to="(810,1370)"/>
     <wire from="(810,1210)" to="(990,1210)"/>
     <wire from="(810,1370)" to="(1000,1370)"/>
@@ -2239,11 +2209,7 @@
     <wire from="(850,520)" to="(850,620)"/>
     <wire from="(850,520)" to="(930,520)"/>
     <wire from="(850,620)" to="(890,620)"/>
-    <wire from="(890,1020)" to="(890,1030)"/>
-    <wire from="(890,1030)" to="(1020,1030)"/>
     <wire from="(890,810)" to="(950,810)"/>
-    <wire from="(890,960)" to="(1020,960)"/>
-    <wire from="(890,960)" to="(890,1020)"/>
     <wire from="(90,270)" to="(120,270)"/>
     <wire from="(90,300)" to="(330,300)"/>
     <wire from="(90,330)" to="(470,330)"/>
@@ -2261,8 +2227,6 @@
     <wire from="(940,1300)" to="(1000,1300)"/>
     <wire from="(940,1320)" to="(1000,1320)"/>
     <wire from="(940,1390)" to="(1000,1390)"/>
-    <wire from="(960,1050)" to="(1020,1050)"/>
-    <wire from="(960,980)" to="(1020,980)"/>
     <wire from="(990,800)" to="(1180,800)"/>
   </circuit>
   <circuit name="OPcodeComparerWE">
