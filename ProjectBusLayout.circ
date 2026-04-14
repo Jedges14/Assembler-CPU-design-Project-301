@@ -2536,7 +2536,7 @@ ad840000 3c040000 34840000 ada40000 adc00000 800002d
       <circ-port dir="out" pin="1200,1180" x="270" y="160"/>
       <circ-port dir="out" pin="1210,1340" x="270" y="170"/>
       <circ-port dir="out" pin="1220,1490" x="270" y="180"/>
-      <circ-port dir="out" pin="1240,360" x="270" y="80"/>
+      <circ-port dir="out" pin="1240,360" x="270" y="150"/>
       <circ-port dir="out" pin="1830,460" x="270" y="90"/>
       <circ-port dir="out" pin="260,390" x="270" y="60"/>
       <circ-port dir="out" pin="480,730" x="270" y="70"/>
@@ -2652,6 +2652,22 @@ ad840000 3c040000 34840000 ada40000 adc00000 800002d
       <a name="value" val="0x0"/>
       <a name="width" val="6"/>
     </comp>
+    <comp lib="0" loc="(1520,670)" name="Constant">
+      <a name="value" val="0xc"/>
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="0" loc="(1520,740)" name="Constant">
+      <a name="value" val="0xd"/>
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="0" loc="(1520,810)" name="Constant">
+      <a name="value" val="0xe"/>
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="0" loc="(1520,870)" name="Constant">
+      <a name="value" val="0xf"/>
+      <a name="width" val="6"/>
+    </comp>
     <comp lib="0" loc="(1590,290)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="Rtype"/>
@@ -2680,6 +2696,10 @@ ad840000 3c040000 34840000 ada40000 adc00000 800002d
     <comp lib="0" loc="(290,210)" name="Constant">
       <a name="value" val="0x0"/>
       <a name="width" val="6"/>
+    </comp>
+    <comp lib="0" loc="(360,730)" name="Constant">
+      <a name="value" val="0x0"/>
+      <a name="width" val="5"/>
     </comp>
     <comp lib="0" loc="(370,410)" name="Constant">
       <a name="value" val="0x10"/>
@@ -2793,9 +2813,15 @@ ad840000 3c040000 34840000 ada40000 adc00000 800002d
     <comp lib="1" loc="(1610,410)" name="OR Gate"/>
     <comp lib="1" loc="(1650,320)" name="AND Gate"/>
     <comp lib="1" loc="(1690,510)" name="AND Gate"/>
+    <comp lib="1" loc="(1740,690)" name="OR Gate">
+      <a name="inputs" val="4"/>
+    </comp>
     <comp lib="1" loc="(430,200)" name="NOT Gate"/>
     <comp lib="1" loc="(630,160)" name="OR Gate"/>
     <comp lib="2" loc="(1200,360)" name="Multiplexer">
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="2" loc="(1260,410)" name="Multiplexer">
       <a name="width" val="5"/>
     </comp>
     <comp lib="2" loc="(1280,290)" name="Multiplexer">
@@ -2808,6 +2834,9 @@ ad840000 3c040000 34840000 ada40000 adc00000 800002d
       <a name="width" val="32"/>
     </comp>
     <comp lib="2" loc="(260,830)" name="Multiplexer">
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="2" loc="(420,720)" name="Multiplexer">
       <a name="width" val="5"/>
     </comp>
     <comp lib="3" loc="(1020,890)" name="Comparator">
@@ -2843,6 +2872,18 @@ ad840000 3c040000 34840000 ada40000 adc00000 800002d
     <comp lib="3" loc="(1610,560)" name="Comparator">
       <a name="width" val="6"/>
     </comp>
+    <comp lib="3" loc="(1630,650)" name="Comparator">
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="3" loc="(1630,720)" name="Comparator">
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="3" loc="(1630,790)" name="Comparator">
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="3" loc="(1630,850)" name="Comparator">
+      <a name="width" val="6"/>
+    </comp>
     <comp lib="3" loc="(350,200)" name="Comparator">
       <a name="width" val="6"/>
     </comp>
@@ -2859,6 +2900,10 @@ ad840000 3c040000 34840000 ada40000 adc00000 800002d
     <comp lib="9" loc="(1215,1215)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="OPcode==11 OR Funccode=9"/>
+    </comp>
+    <comp lib="9" loc="(1832,766)" name="Text">
+      <a name="font" val="SansSerif plain 12"/>
+      <a name="text" val="Replace RD sel with RT for ori,lui,andi.xori"/>
     </comp>
     <comp lib="9" loc="(295,150)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
@@ -2970,14 +3015,23 @@ ad840000 3c040000 34840000 ada40000 adc00000 800002d
     <wire from="(1200,280)" to="(1200,360)"/>
     <wire from="(1200,280)" to="(1250,280)"/>
     <wire from="(1200,380)" to="(1200,410)"/>
+    <wire from="(1210,420)" to="(1210,470)"/>
+    <wire from="(1210,420)" to="(1230,420)"/>
+    <wire from="(1220,350)" to="(1220,400)"/>
+    <wire from="(1220,350)" to="(1380,350)"/>
+    <wire from="(1220,400)" to="(1230,400)"/>
     <wire from="(1240,1600)" to="(1240,1640)"/>
     <wire from="(1240,1600)" to="(1410,1600)"/>
     <wire from="(1240,1640)" to="(1260,1640)"/>
-    <wire from="(1240,350)" to="(1240,360)"/>
-    <wire from="(1240,350)" to="(1380,350)"/>
+    <wire from="(1240,360)" to="(1240,380)"/>
+    <wire from="(1240,380)" to="(1260,380)"/>
+    <wire from="(1240,430)" to="(1250,430)"/>
     <wire from="(1250,300)" to="(1250,310)"/>
+    <wire from="(1250,430)" to="(1250,600)"/>
+    <wire from="(1250,600)" to="(1740,600)"/>
     <wire from="(1260,230)" to="(1350,230)"/>
     <wire from="(1260,310)" to="(1410,310)"/>
+    <wire from="(1260,380)" to="(1260,410)"/>
     <wire from="(1280,290)" to="(1300,290)"/>
     <wire from="(1300,210)" to="(1300,290)"/>
     <wire from="(1300,210)" to="(1350,210)"/>
@@ -3011,6 +3065,14 @@ ad840000 3c040000 34840000 ada40000 adc00000 800002d
     <wire from="(1460,590)" to="(1460,1070)"/>
     <wire from="(1480,510)" to="(1500,510)"/>
     <wire from="(1490,400)" to="(1560,400)"/>
+    <wire from="(1490,640)" to="(1490,710)"/>
+    <wire from="(1490,640)" to="(1590,640)"/>
+    <wire from="(1490,710)" to="(1490,750)"/>
+    <wire from="(1490,710)" to="(1590,710)"/>
+    <wire from="(1490,750)" to="(1490,780)"/>
+    <wire from="(1490,780)" to="(1490,840)"/>
+    <wire from="(1490,780)" to="(1590,780)"/>
+    <wire from="(1490,840)" to="(1590,840)"/>
     <wire from="(150,440)" to="(150,590)"/>
     <wire from="(150,590)" to="(150,680)"/>
     <wire from="(150,590)" to="(340,590)"/>
@@ -3018,9 +3080,21 @@ ad840000 3c040000 34840000 ada40000 adc00000 800002d
     <wire from="(1500,430)" to="(1560,430)"/>
     <wire from="(1500,580)" to="(1550,580)"/>
     <wire from="(1510,1430)" to="(1510,1580)"/>
+    <wire from="(1520,670)" to="(1570,670)"/>
+    <wire from="(1520,740)" to="(1570,740)"/>
+    <wire from="(1520,810)" to="(1570,810)"/>
+    <wire from="(1520,870)" to="(1570,870)"/>
     <wire from="(1550,570)" to="(1550,580)"/>
     <wire from="(1550,570)" to="(1570,570)"/>
     <wire from="(1560,390)" to="(1560,400)"/>
+    <wire from="(1570,660)" to="(1570,670)"/>
+    <wire from="(1570,660)" to="(1590,660)"/>
+    <wire from="(1570,730)" to="(1570,740)"/>
+    <wire from="(1570,730)" to="(1590,730)"/>
+    <wire from="(1570,800)" to="(1570,810)"/>
+    <wire from="(1570,800)" to="(1590,800)"/>
+    <wire from="(1570,860)" to="(1570,870)"/>
+    <wire from="(1570,860)" to="(1590,860)"/>
     <wire from="(1590,290)" to="(1600,290)"/>
     <wire from="(160,260)" to="(160,420)"/>
     <wire from="(160,260)" to="(220,260)"/>
@@ -3033,13 +3107,24 @@ ad840000 3c040000 34840000 ada40000 adc00000 800002d
     <wire from="(1610,560)" to="(1640,560)"/>
     <wire from="(1630,380)" to="(1630,450)"/>
     <wire from="(1630,380)" to="(1750,380)"/>
+    <wire from="(1630,650)" to="(1690,650)"/>
+    <wire from="(1630,720)" to="(1660,720)"/>
+    <wire from="(1630,790)" to="(1690,790)"/>
+    <wire from="(1630,850)" to="(1670,850)"/>
     <wire from="(1640,530)" to="(1640,560)"/>
     <wire from="(1650,320)" to="(1650,480)"/>
     <wire from="(1660,360)" to="(1660,460)"/>
     <wire from="(1660,460)" to="(1710,460)"/>
+    <wire from="(1660,680)" to="(1660,720)"/>
+    <wire from="(1660,680)" to="(1690,680)"/>
+    <wire from="(1670,700)" to="(1670,850)"/>
+    <wire from="(1670,700)" to="(1690,700)"/>
     <wire from="(1690,200)" to="(1690,410)"/>
     <wire from="(1690,410)" to="(1690,510)"/>
     <wire from="(1690,410)" to="(1770,410)"/>
+    <wire from="(1690,650)" to="(1690,670)"/>
+    <wire from="(1690,710)" to="(1690,790)"/>
+    <wire from="(1740,600)" to="(1740,690)"/>
     <wire from="(1750,370)" to="(1750,380)"/>
     <wire from="(1750,370)" to="(1760,370)"/>
     <wire from="(1750,390)" to="(1750,460)"/>
@@ -3049,8 +3134,8 @@ ad840000 3c040000 34840000 ada40000 adc00000 800002d
     <wire from="(180,610)" to="(180,820)"/>
     <wire from="(180,820)" to="(230,820)"/>
     <wire from="(1830,380)" to="(1830,460)"/>
-    <wire from="(190,360)" to="(1160,360)"/>
     <wire from="(190,360)" to="(190,690)"/>
+    <wire from="(190,360)" to="(990,360)"/>
     <wire from="(190,690)" to="(220,690)"/>
     <wire from="(200,270)" to="(200,540)"/>
     <wire from="(200,540)" to="(810,540)"/>
@@ -3058,7 +3143,7 @@ ad840000 3c040000 34840000 ada40000 adc00000 800002d
     <wire from="(220,260)" to="(260,260)"/>
     <wire from="(220,520)" to="(630,520)"/>
     <wire from="(220,690)" to="(220,840)"/>
-    <wire from="(220,690)" to="(480,690)"/>
+    <wire from="(220,690)" to="(370,690)"/>
     <wire from="(220,840)" to="(230,840)"/>
     <wire from="(240,850)" to="(250,850)"/>
     <wire from="(250,390)" to="(250,790)"/>
@@ -3078,16 +3163,25 @@ ad840000 3c040000 34840000 ada40000 adc00000 800002d
     <wire from="(340,390)" to="(340,590)"/>
     <wire from="(340,390)" to="(380,390)"/>
     <wire from="(350,200)" to="(370,200)"/>
+    <wire from="(360,730)" to="(390,730)"/>
     <wire from="(370,170)" to="(370,200)"/>
     <wire from="(370,170)" to="(390,170)"/>
     <wire from="(370,200)" to="(400,200)"/>
     <wire from="(370,410)" to="(380,410)"/>
+    <wire from="(370,690)" to="(370,710)"/>
+    <wire from="(370,710)" to="(390,710)"/>
+    <wire from="(400,740)" to="(400,750)"/>
+    <wire from="(400,750)" to="(460,750)"/>
     <wire from="(420,400)" to="(480,400)"/>
+    <wire from="(420,720)" to="(430,720)"/>
     <wire from="(430,200)" to="(530,200)"/>
+    <wire from="(430,720)" to="(430,730)"/>
+    <wire from="(430,730)" to="(480,730)"/>
     <wire from="(450,420)" to="(480,420)"/>
+    <wire from="(460,600)" to="(1250,600)"/>
+    <wire from="(460,600)" to="(460,750)"/>
     <wire from="(470,270)" to="(1050,270)"/>
     <wire from="(470,270)" to="(470,330)"/>
-    <wire from="(480,690)" to="(480,730)"/>
     <wire from="(520,410)" to="(630,410)"/>
     <wire from="(530,140)" to="(530,200)"/>
     <wire from="(530,140)" to="(580,140)"/>
@@ -3102,8 +3196,10 @@ ad840000 3c040000 34840000 ada40000 adc00000 800002d
     <wire from="(630,160)" to="(640,160)"/>
     <wire from="(630,410)" to="(630,450)"/>
     <wire from="(630,450)" to="(650,450)"/>
-    <wire from="(630,520)" to="(630,790)"/>
+    <wire from="(630,520)" to="(630,750)"/>
     <wire from="(630,520)" to="(850,520)"/>
+    <wire from="(630,750)" to="(1490,750)"/>
+    <wire from="(630,750)" to="(630,790)"/>
     <wire from="(630,790)" to="(630,880)"/>
     <wire from="(630,790)" to="(950,790)"/>
     <wire from="(630,880)" to="(630,1020)"/>
@@ -3146,6 +3242,9 @@ ad840000 3c040000 34840000 ada40000 adc00000 800002d
     <wire from="(940,1300)" to="(1000,1300)"/>
     <wire from="(940,1320)" to="(1000,1320)"/>
     <wire from="(940,1390)" to="(1000,1390)"/>
+    <wire from="(990,360)" to="(1160,360)"/>
+    <wire from="(990,360)" to="(990,470)"/>
+    <wire from="(990,470)" to="(1210,470)"/>
     <wire from="(990,800)" to="(1180,800)"/>
   </circuit>
   <circuit name="OPcodeComparerWE">
