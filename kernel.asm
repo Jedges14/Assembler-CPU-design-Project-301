@@ -22,9 +22,53 @@ lui $sp, 0x03FF
 syscall0:
 
 j __SYSCALL_EndOfFile__
+
+
 syscall1:
+# handle 0 case
+beq $a0, $0, printZero
+
+
+# allocate stack space
+addi $sp, $sp, -40
+add  $v0, $sp, $zero     # v0 = stack pointer
+
+extract:
+addi $k1, $zero, 10      # k1 = 10
+div  $a0, $k1
+mfhi $k1                 # remainder
+mflo $a0                 # quotient
+
+addi $k1, $k1, 48        # ASCII
+sw   $k1, 0($v0)
+addi $v0, $v0, 4
+
+bne  $a0, $zero, extract
+
+#  terminal address 
+lui $k1, 0xFFFF
+ori $k1, $k1, 0xF000
+
+printLoop:
+addi $v0, $v0, -4
+lw   $a0, 0($v0)
+sw   $a0, 0($k1)
+
+bne  $v0, $sp, printLoop
+
+addi $sp, $sp, 40
+jr $k0
+
+
+printZero:
+lui $k1, 0xFFFF
+ori $k1, $k1, 0xF000
+
+addi $v0, $zero, 48
+sw   $v0, 0($k1)
 
 jr $k0
+
 syscall5:
 
 jr $k0
@@ -66,7 +110,6 @@ lw $v0,0($k1)
 jr $k0
 
 
-__SYSCALL_EndOfFile__:
 
 
 
@@ -82,3 +125,8 @@ lui $k1, 0xFFFF
 ori $k1, $k1, 0xF010
 #Moves next character to front of buffer
 sw $0,0($k1) 
+
+
+
+
+__SYSCALL_EndOfFile__:
