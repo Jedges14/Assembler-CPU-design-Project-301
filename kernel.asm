@@ -71,6 +71,44 @@ jr $k0
 
 syscall5:
 
+    # result will be stored in $v0
+    addi $v0, $0, 0          # result = 0
+
+readLoop:
+#Puts cur character from keyboard into k1
+lui $k1, 0xFFFF
+ori $k1, $k1, 0xF014
+lw $k1,0($k1) 
+
+# check if $k1 is a digit
+addi $a3, $0, 48         
+slt  $a3, $k1, $a3       
+bne  $a3, $0, endReadLoop
+
+addi $a3, $0, 58         
+slt  $a3, $k1, $a3       
+beq  $a3, $0, endReadLoop
+
+# convert ASCII to digit 
+addi $k1, $k1, -48      
+
+#result = result * 10 + digit
+addi $a3,$0,10
+mult  $v0,$a3
+mflo $v0	
+add  $v0, $v0, $k1
+
+# read next character into $k1 
+#loading address
+lui $k1, 0xFFFF
+ori $k1, $k1, 0xF010
+#Moves next character to front of buffer
+sw $0,0($k1) 
+
+
+j readLoop
+
+endReadLoop:
 jr $k0
 syscall9:
 
