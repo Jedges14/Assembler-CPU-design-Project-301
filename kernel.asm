@@ -17,10 +17,13 @@ beq $v0, $k1,syscall12
 
 #catches illegal syscalls
 jr $k0
-lui $sp, 0x03FF
 
 syscall0:
-
+lui $sp, 0x03FF
+la $k1, _END_OF_STATIC_MEMORY_
+lui $k0, 0xFFFF
+ori $k0, $k0, 0xF004
+sw $k1, 0($k0)
 j __SYSCALL_EndOfFile__
 
 
@@ -111,6 +114,22 @@ j readLoop
 endReadLoop:
 jr $k0
 syscall9:
+
+# load address where heap pointer is stored (0xFFFFF004)
+lui $k1, 0xFFFF
+ori $k1, $k1, 0xF004
+
+# load current heap pointer
+lw $v0, 0($k1)
+# compute new heap pointer = old + requested bytes
+add $v0, $v0, $a0
+
+# store updated heap pointer
+sw $v0, 0($k1)
+
+# return current heap pointer
+sub $v0, $v0, $a0
+
 
 jr $k0
 syscall10:

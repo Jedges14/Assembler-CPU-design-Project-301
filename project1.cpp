@@ -111,6 +111,7 @@ int main(int argc, char* argv[]) {
         }
         infile.close();
     }
+    symbol_dict["_END_OF_STATIC_MEMORY_"] = static_Byte_Counter;
     // std::cout << "Phase1 instruction count: " << instruction_Line_Counter << std::endl;
 
 
@@ -349,18 +350,18 @@ int main(int argc, char* argv[]) {
     // std::cout << "Phase3 instruction count: " << new_instruction_Line_Counter << std::endl;
 
     // Unccoment below to run readbytes
-    // inst_outfile.close();
-    // static_outfile.close();  
-    //     std::string filename = argv[argc-1];
-    //     // std::string filename = "test5static.bin";
+    inst_outfile.close();
+    static_outfile.close();  
+        std::string filename = argv[argc-1];
+        // std::string filename = "test5static.bin";
 
-    // int buffer;
-    // std::ifstream file(filename, std::ios::in | std::ios::binary);
-    // while(file.read((char*) &buffer,sizeof(int))) {
-    //     std::cout << std::bitset<32>(buffer) << " " << std::setfill('0') <<
-    //     std::setw(8) << std::hex << buffer << " " << std::dec << buffer << std::endl;
-    // }
-    // file.close();
+    int buffer;
+    std::ifstream file(filename, std::ios::in | std::ios::binary);
+    while(file.read((char*) &buffer,sizeof(int))) {
+        std::cout << std::bitset<32>(buffer) << " " << std::setfill('0') <<
+        std::setw(8) << std::hex << buffer << " " << std::dec << buffer << std::endl;
+    }
+    file.close();
 }
 
 

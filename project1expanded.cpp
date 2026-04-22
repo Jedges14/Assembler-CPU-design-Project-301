@@ -120,6 +120,8 @@ int main(int argc, char* argv[]) {
         }
         infile.close();
     }
+    symbol_dict["_END_OF_STATIC_MEMORY_"] = static_Byte_Counter;
+
     // std::cout << "Phase1 instruction count: " << instruction_Line_Counter << std::endl;
 
 
