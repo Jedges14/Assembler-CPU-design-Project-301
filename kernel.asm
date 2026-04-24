@@ -1,6 +1,6 @@
 #checks what value is in v0 and jumps to appropiate syscall method
-addi $k1, $0,0
-addi $v0,$0,0
+#we assume that v0 will always start at 0 as that is how our register works and also that we will never call syscall when v0 is 0 or that will break things
+addi $k1, $0,0 
 beq $v0, $k1,syscall0
 addi $k1, $0,1
 beq $v0, $k1,syscall1
@@ -14,6 +14,8 @@ addi $k1, $0,11
 beq $v0, $k1,syscall11
 addi $k1, $0,12
 beq $v0, $k1,syscall12
+
+
 
 
 #catches illegal syscalls
@@ -86,6 +88,14 @@ syscall5:
     addi $v0, $0, 0          # result = 0
 
 readLoop:
+checkKeyboard5:
+lui $k1, 65535 #0xFFFF
+ori $k1, $k1, 61456 #0xF010
+#Puts avalbility bit into k1
+
+lw $k1,0($k1) 
+beq $k1, $0,checkKeyboard5
+
 #Puts cur character from keyboard into k1
 lui $k1, 65535 #0xFFFF
 ori $k1, $k1, 61460 #0xF014
@@ -203,6 +213,11 @@ beq $k1, $0,checkKeyboard
 lui $k1, 65535 #0xFFFF
 ori $k1, $k1, 61460 #0xF014
 lw $v0,0($k1) 
+
+lui $k1, 65535 #0xFFFF
+ori $k1, $k1, 61456 #0xF010
+#Moves next character to front of buffer
+sw $0,0($k1) 
 
 
 jr $k0
