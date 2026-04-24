@@ -219,8 +219,8 @@ try:
     j loop
 
 draw:
-    lui $t6,0xFFFF
-    ori $t6,$t6,0xF028
+    lui $t6,65535
+    ori $t6,$t6,61480
 
     lw $t4,px
     lw $t5,py
@@ -235,8 +235,8 @@ col:
     beq $t1,$t7,next_row
 
     # li $a0,0x005500  (too big for addi)
-    lui $a0,0x0000
-    ori $a0,$a0,0x5500
+    lui $a0,0
+    ori $a0,$a0,21760
 
     bne $t1,$t4,chk_floor
     bne $t0,$t5,chk_floor
@@ -256,8 +256,8 @@ chk_floor:
     beq $t2,$0,draw_cell
 
     # li $a0,0xAAAAAA (too big)
-    lui $a0,0x00AA
-    ori $a0,$a0,0xAAAA
+    lui $a0,170
+    ori $a0,$a0,43690
 
 draw_cell:
     sll $t2,$t1,2
