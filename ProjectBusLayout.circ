@@ -114,7 +114,7 @@
     <a name="appearance" val="logisim_evolution"/>
     <a name="circuit" val="Computer"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="simulationFrequency" val="1.0"/>
+    <a name="simulationFrequency" val="8.0"/>
     <comp lib="0" loc="(1010,610)" name="Clock">
       <a name="appearance" val="classic"/>
     </comp>
@@ -550,15 +550,18 @@
       <a name="addrWidth" val="24"/>
       <a name="appearance" val="logisim_evolution"/>
       <a name="contents">addr/data: 24 32
-201d03ff 1dec00 8000003 23bdffd0 200800ff 84a00 85400 200b007f
-b6200 b6c00 afaa0000 14cc020 afb80004 149c020 afb80008 1a9c020
-afb8000c afa90010 169c020 afb80014 109c020 afb80018 10cc020 afb8001c
-afa80020 10dc020 afb80024 10ac020 afb80028 16ac020 afb8002c 20100000
-20110000 20120000 8c08f010 11000017 8c08f014 20090077 15090003 12200012
-2231ffff 800003a 20090061 15090003 1200000d 2210ffff 800003a 20090073
-15090004 200a00ff 122a0007 22310001 800003a 20090064 15090003 200a00ff
-120a0001 22100001 ac00f010 22520001 2008000c 248001a 9010 124080
-11d4020 8d080000 ac10f020 ac11f024 ac08f028 ac00f02c 8000022
+201b0000 20020000 105b000d 201b0001 105b0011 201b0005 105b0027 201b0009
+105b0039 201b000a 105b003e 201b000b 105b003d 201b000c 105b003f 3400008
+3c1d03ff 201b0000 3c1affff 375af004 af5b0000 8000056 10800012 23bdffd8
+3a01020 201b000a 9b001a d810 2012 237b0030 ac5b0000 20420004
+1480fff8 3c1bffff 377bf000 2042fffc 8c440000 af640000 145dfffc 23bd0028
+3400008 3c1bffff 377bf000 20020030 af620000 3400008 20020000 3c1bffff
+377bf014 8f7b0000 20070030 367382a 14e0000c 2007003a 367382a 10e00009
+237bffd0 2007000a 470018 1012 5b1020 3c1bffff 377bf010 af600000
+800002f 3400008 3c1bffff 377bf004 8f620000 441020 af620000 441022
+3400008 8000049 3c1bffff 377bf000 af640000 3400008 3c1bffff 377bf010
+8f7b0000 1360fffc 3c1bffff 377bf014 8f620000 3400008 20020005 d00c
+28020 2002000c d00c 20020005 d00c 2022020 20020001 d00c
 </a>
       <a name="dataWidth" val="32"/>
       <a name="label" val="MemROM"/>
@@ -1457,10 +1460,6 @@ afa80020 10dc020 afb80024 10ac020 afb80028 16ac020 afb8002c 20100000
       <a name="label" val="r25"/>
       <a name="width" val="32"/>
     </comp>
-    <comp lib="0" loc="(1210,3740)" name="Tunnel">
-      <a name="label" val="r26"/>
-      <a name="width" val="32"/>
-    </comp>
     <comp lib="0" loc="(1210,3850)" name="Tunnel">
       <a name="label" val="r27"/>
       <a name="width" val="32"/>
@@ -1479,6 +1478,10 @@ afa80020 10dc020 afb80024 10ac020 afb80028 16ac020 afb8002c 20100000
     </comp>
     <comp lib="0" loc="(1210,4290)" name="Tunnel">
       <a name="label" val="r31"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(1230,3740)" name="Tunnel">
+      <a name="label" val="r26"/>
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(1240,2650)" name="Tunnel">
@@ -1971,6 +1974,7 @@ afa80020 10dc020 afb80024 10ac020 afb80028 16ac020 afb8002c 20100000
     <wire from="(1210,2440)" to="(1370,2440)"/>
     <wire from="(1210,2550)" to="(1380,2550)"/>
     <wire from="(1210,2650)" to="(1240,2650)"/>
+    <wire from="(1210,3740)" to="(1230,3740)"/>
     <wire from="(1210,910)" to="(1790,910)"/>
     <wire from="(1240,920)" to="(1240,1020)"/>
     <wire from="(1240,920)" to="(1780,920)"/>
@@ -2585,6 +2589,10 @@ afa80020 10dc020 afb80024 10ac020 afb80028 16ac020 afb8002c 20100000
       <circ-port dir="out" pin="480,730" x="270" y="70"/>
       <circ-port dir="out" pin="620,200" x="270" y="110"/>
     </appear>
+    <comp lib="0" loc="(100,860)" name="Constant">
+      <a name="value" val="0xd009"/>
+      <a name="width" val="32"/>
+    </comp>
     <comp lib="0" loc="(1030,400)" name="Constant">
       <a name="value" val="0x8"/>
       <a name="width" val="6"/>
@@ -2819,6 +2827,10 @@ afa80020 10dc020 afb80024 10ac020 afb80028 16ac020 afb8002c 20100000
       <a name="incoming" val="32"/>
       <a name="spacing" val="3"/>
     </comp>
+    <comp lib="0" loc="(60,830)" name="Constant">
+      <a name="value" val="0xd00c"/>
+      <a name="width" val="32"/>
+    </comp>
     <comp lib="0" loc="(620,200)" name="Pin">
       <a name="appearance" val="NewPins"/>
       <a name="facing" val="west"/>
@@ -2924,6 +2936,9 @@ afa80020 10dc020 afb80024 10ac020 afb80028 16ac020 afb8002c 20100000
     <comp lib="2" loc="(1380,220)" name="Multiplexer">
       <a name="width" val="5"/>
     </comp>
+    <comp lib="2" loc="(160,840)" name="Multiplexer">
+      <a name="width" val="32"/>
+    </comp>
     <comp lib="2" loc="(1790,380)" name="Multiplexer">
       <a name="width" val="32"/>
     </comp>
@@ -2937,6 +2952,9 @@ afa80020 10dc020 afb80024 10ac020 afb80028 16ac020 afb8002c 20100000
       <a name="width" val="32"/>
     </comp>
     <comp lib="2" loc="(570,1170)" name="Multiplexer">
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="3" loc="(100,820)" name="Comparator">
       <a name="width" val="32"/>
     </comp>
     <comp lib="3" loc="(1020,890)" name="Comparator">
@@ -3051,6 +3069,8 @@ afa80020 10dc020 afb80024 10ac020 afb80028 16ac020 afb8002c 20100000
     </comp>
     <comp loc="(1110,620)" name="ALUCodeAssigner"/>
     <comp loc="(1150,520)" name="OPcodeComparerWE"/>
+    <wire from="(100,820)" to="(110,820)"/>
+    <wire from="(100,860)" to="(120,860)"/>
     <wire from="(1020,890)" to="(1190,890)"/>
     <wire from="(1030,1150)" to="(1050,1150)"/>
     <wire from="(1030,1220)" to="(1050,1220)"/>
@@ -3085,6 +3105,8 @@ afa80020 10dc020 afb80024 10ac020 afb80028 16ac020 afb8002c 20100000
     <wire from="(1090,1360)" to="(1090,1380)"/>
     <wire from="(110,390)" to="(110,610)"/>
     <wire from="(110,610)" to="(180,610)"/>
+    <wire from="(110,820)" to="(110,870)"/>
+    <wire from="(110,870)" to="(140,870)"/>
     <wire from="(1100,1090)" to="(1100,1100)"/>
     <wire from="(1100,1630)" to="(1100,1640)"/>
     <wire from="(1100,1630)" to="(1120,1630)"/>
@@ -3119,6 +3141,8 @@ afa80020 10dc020 afb80024 10ac020 afb80028 16ac020 afb8002c 20100000
     <wire from="(1190,890)" to="(1190,910)"/>
     <wire from="(120,210)" to="(120,270)"/>
     <wire from="(120,270)" to="(200,270)"/>
+    <wire from="(120,850)" to="(120,860)"/>
+    <wire from="(120,850)" to="(130,850)"/>
     <wire from="(1200,1180)" to="(1200,1200)"/>
     <wire from="(1200,1270)" to="(1200,1330)"/>
     <wire from="(1200,1340)" to="(1200,1430)"/>
@@ -3145,6 +3169,8 @@ afa80020 10dc020 afb80024 10ac020 afb80028 16ac020 afb8002c 20100000
     <wire from="(1260,310)" to="(1410,310)"/>
     <wire from="(1260,380)" to="(1260,410)"/>
     <wire from="(1280,290)" to="(1300,290)"/>
+    <wire from="(130,770)" to="(130,830)"/>
+    <wire from="(130,770)" to="(150,770)"/>
     <wire from="(1300,210)" to="(1300,290)"/>
     <wire from="(1300,210)" to="(1350,210)"/>
     <wire from="(1320,280)" to="(1320,590)"/>
@@ -3167,6 +3193,7 @@ afa80020 10dc020 afb80024 10ac020 afb80028 16ac020 afb8002c 20100000
     <wire from="(140,1290)" to="(240,1290)"/>
     <wire from="(140,1360)" to="(240,1360)"/>
     <wire from="(140,680)" to="(150,680)"/>
+    <wire from="(140,860)" to="(140,870)"/>
     <wire from="(1400,320)" to="(1400,340)"/>
     <wire from="(1400,320)" to="(1410,320)"/>
     <wire from="(1400,340)" to="(1420,340)"/>
@@ -3193,7 +3220,9 @@ afa80020 10dc020 afb80024 10ac020 afb80028 16ac020 afb8002c 20100000
     <wire from="(1490,780)" to="(1590,780)"/>
     <wire from="(1490,840)" to="(1590,840)"/>
     <wire from="(150,440)" to="(150,540)"/>
-    <wire from="(150,540)" to="(150,680)"/>
+    <wire from="(150,540)" to="(150,600)"/>
+    <wire from="(150,600)" to="(210,600)"/>
+    <wire from="(150,680)" to="(150,770)"/>
     <wire from="(1500,430)" to="(1500,510)"/>
     <wire from="(1500,430)" to="(1560,430)"/>
     <wire from="(1500,580)" to="(1550,580)"/>
@@ -3216,6 +3245,8 @@ afa80020 10dc020 afb80024 10ac020 afb80028 16ac020 afb8002c 20100000
     <wire from="(1590,290)" to="(1600,290)"/>
     <wire from="(160,260)" to="(160,420)"/>
     <wire from="(160,260)" to="(220,260)"/>
+    <wire from="(160,840)" to="(160,880)"/>
+    <wire from="(160,880)" to="(210,880)"/>
     <wire from="(1600,290)" to="(1600,300)"/>
     <wire from="(1600,340)" to="(1610,340)"/>
     <wire from="(1610,340)" to="(1610,410)"/>
@@ -3258,8 +3289,12 @@ afa80020 10dc020 afb80024 10ac020 afb80028 16ac020 afb8002c 20100000
     <wire from="(190,360)" to="(190,690)"/>
     <wire from="(190,360)" to="(990,360)"/>
     <wire from="(190,690)" to="(220,690)"/>
+    <wire from="(20,770)" to="(130,770)"/>
+    <wire from="(20,770)" to="(20,810)"/>
+    <wire from="(20,810)" to="(60,810)"/>
     <wire from="(200,270)" to="(200,540)"/>
     <wire from="(200,540)" to="(810,540)"/>
+    <wire from="(210,600)" to="(210,880)"/>
     <wire from="(220,1240)" to="(220,1250)"/>
     <wire from="(220,1240)" to="(240,1240)"/>
     <wire from="(220,1310)" to="(220,1320)"/>
@@ -4610,7 +4645,7 @@ afa80020 10dc020 afb80024 10ac020 afb80028 16ac020 afb8002c 20100000
       <a name="appearance" val="logisim_evolution"/>
       <a name="label" val="DutyCycle"/>
     </comp>
-    <comp lib="9" loc="(455,276)" name="Text">
+    <comp lib="9" loc="(455,275)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="We use sw to write to intenral registers and then turn on with 04c"/>
     </comp>
