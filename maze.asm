@@ -73,7 +73,7 @@ try:
 
 draw:
     lui $t6,0xFFFF
-    ori $t6,$t6,0xF020
+    ori $t6,$t6,0xF028
 
     lw $t4,px
     lw $t5,py
