@@ -24,8 +24,8 @@ jr $k0
 syscall0:
 lui $sp, 1023   #0x03FF
 la $k1, _END_OF_STATIC_MEMORY_
-lui $k0, 65535 #0xFFFF
-ori $k0, $k0, 61444 #0xF004
+lui $k0, 1023 #0x03ff
+ori $k0, $k0, 61440 #0xf000
 sw $k1, 0($k0)
 j __SYSCALL_EndOfFile__
 
@@ -144,9 +144,9 @@ jr $k0
 
 syscall9:
 
-# load address of heap pointer (0xFFFFF004)
-lui $k1, 65535 #0xFFFF
-ori $k1, $k1, 61444 #0xF004
+# load address of heap pointer (0x03fff000)
+lui $k1, 1023 #0x03ff
+ori $k1, $k1, 61440 #0xf000
 
 # load current heap pointer
 lw $v0, 0($k1)
