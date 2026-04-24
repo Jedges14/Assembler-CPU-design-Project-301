@@ -1,9 +1,9 @@
 .data
-maze:   .word 0 0 0 0 0
-        .word 0 1 1 1 0
-        .word 0 1 0 1 0
-        .word 0 1 1 1 0
-        .word 0 0 0 0 0
+maze:   .word 0 0 0 0 0 0 1 1 1 0 0 1 0 1 0 0 1 1 1 0 0 0 0 0 0
+        # .word 0 1 1 1 0
+        # .word 0 1 0 1 0
+        # .word 0 1 1 1 0
+        # .word 0 0 0 0 0
 
 px:     .word 1
 py:     .word 1
