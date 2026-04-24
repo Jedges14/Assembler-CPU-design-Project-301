@@ -1,5 +1,6 @@
 #checks what value is in v0 and jumps to appropiate syscall method
 addi $k1, $0,0
+addi $v0,$0,0
 beq $v0, $k1,syscall0
 addi $k1, $0,1
 beq $v0, $k1,syscall1
@@ -19,10 +20,10 @@ beq $v0, $k1,syscall12
 jr $k0
 
 syscall0:
-lui $sp, 0x03FF
+lui $sp, 1023   #0x03FF
 la $k1, _END_OF_STATIC_MEMORY_
-lui $k0, 0xFFFF
-ori $k0, $k0, 0xF004
+lui $k0, 65535 #0xFFFF
+ori $k0, $k0, 61444 #0xF004
 sw $k1, 0($k0)
 j __SYSCALL_EndOfFile__
 
@@ -37,10 +38,10 @@ addi $sp, $sp, -40
 add  $v0, $sp, $zero     # v0 = stack pointer
 
 extract:
-addi $k1, $zero, 10      # k1 = 10
+addi $k1, $zero, 10    # k1 = 10
 div  $a0, $k1
-mfhi $k1                 # remainder
-mflo $a0                 # quotient
+mfhi $k1           # remainder
+mflo $a0        # quotient
 
 addi $k1, $k1, 48        # ASCII
 sw   $k1, 0($v0)
@@ -49,8 +50,8 @@ addi $v0, $v0, 4
 bne  $a0, $zero, extract
 
 #  terminal address 
-lui $k1, 0xFFFF
-ori $k1, $k1, 0xF000
+lui $k1, 65535 #0xFFFF
+ori $k1, $k1, 61440 #0xF000
 
 printLoop:
 addi $v0, $v0, -4
@@ -64,13 +65,20 @@ jr $k0
 
 
 printZero:
-lui $k1, 0xFFFF
-ori $k1, $k1, 0xF000
+lui $k1, 65535 #0xFFFF
+ori $k1, $k1, 61440 #0xF000
 
 addi $v0, $zero, 48
 sw   $v0, 0($k1)
 
 jr $k0
+
+
+
+
+
+
+
 
 syscall5:
 
@@ -79,8 +87,8 @@ syscall5:
 
 readLoop:
 #Puts cur character from keyboard into k1
-lui $k1, 0xFFFF
-ori $k1, $k1, 0xF014
+lui $k1, 65535 #0xFFFF
+ori $k1, $k1, 61460 #0xF014
 lw $k1,0($k1) 
 
 # check if $k1 is a digit
@@ -103,8 +111,8 @@ add  $v0, $v0, $k1
 
 # read next character into $k1 
 #loading address
-lui $k1, 0xFFFF
-ori $k1, $k1, 0xF010
+lui $k1, 65535 #0xFFFF
+ori $k1, $k1, 61456 #0xF010
 #Moves next character to front of buffer
 sw $0,0($k1) 
 
@@ -113,15 +121,26 @@ j readLoop
 
 endReadLoop:
 jr $k0
+
+
+
+
+
+
+
+
+
+
+
 syscall9:
 
-# load address where heap pointer is stored (0xFFFFF004)
-lui $k1, 0xFFFF
-ori $k1, $k1, 0xF004
+# load address of heap pointer (0xFFFFF004)
+lui $k1, 65535 #0xFFFF
+ori $k1, $k1, 61444 #0xF004
 
 # load current heap pointer
 lw $v0, 0($k1)
-# compute new heap pointer = old + requested bytes
+# gets new heap pointer (current + new bytes)
 add $v0, $v0, $a0
 
 # store updated heap pointer
@@ -132,56 +151,61 @@ sub $v0, $v0, $a0
 
 
 jr $k0
+
+
+
 syscall10:
 #ends the program in effect
 infLoop:
 j infLoop
 
+
+
+
+
+
+
+
+
+
+
+
+
 syscall11:
 
 #adding address for terminal write and then writing
-lui $k1, 0xFFFF
-ori $k1, $k1, 0xF000
+lui $k1, 65535 #0xFFFF
+ori $k1, $k1, 61440 #0xF000
 sw $a0,0($k1)
 
 jr $k0
+
+
+
+
+
+
+
 
 
 syscall12:
 
 #loading address
 checkKeyboard:
-lui $k1, 0xFFFF
-ori $k1, $k1, 0xF010
+lui $k1, 65535 #0xFFFF
+ori $k1, $k1, 61456 #0xF010
 #Puts avalbility bit into k1
 
 lw $k1,0($k1) 
 beq $k1, $0,checkKeyboard
 
 #Puts cur character from keyboard into v0
-lui $k1, 0xFFFF
-ori $k1, $k1, 0xF014
+lui $k1, 65535 #0xFFFF
+ori $k1, $k1, 61460 #0xF014
 lw $v0,0($k1) 
 
 
 jr $k0
-
-
-
-
-
-#Template code
-
-#Puts cur character from keyboard into k1
-lui $k1, 0xFFFF
-ori $k1, $k1, 0xF014
-lw $k1,0($k1) 
-
-#loading address
-lui $k1, 0xFFFF
-ori $k1, $k1, 0xF010
-#Moves next character to front of buffer
-sw $0,0($k1) 
 
 
 
