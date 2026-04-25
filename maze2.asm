@@ -139,142 +139,80 @@ try_move:
     # --- Setup display base ---
     lui  $t6, 65535
     ori  $t6, $t6, 61472    # 0xFFFFF020
-    # =====================================================
-    # ERASE OLD PLAYER (GREEN FLOOR)
-    # =====================================================
-    la   $t0, ppx
-    lw   $t1, 0($t0)
-    la   $t2, ppy
-    lw   $t3, 0($t2)
 
-    # scale
-    sll  $t1, $t1, 2
-    addi $t1, $t1, 100
-    sll  $t3, $t3, 2
-    addi $t3, $t3, 100
+    #Draw block
+la   $t0, px
+lw   $t1, 0($t0)
+la   $t2, py
+lw   $t3, 0($t2)
 
-    lui  $t4, 0
-    ori  $t4, $t4, 21760    # green
+# scale to screen coords
+sll  $t1, $t1, 2
+addi $t1, $t1, 100
+sll  $t3, $t3, 2
+addi $t3, $t3, 100
 
-    add  $t8, $t1, $0
-    add  $t9, $t3, $0
+addi $t4, $0, 255        # blue
 
-    # (0,0)
-    sw $t8, 0($t6)
-    sw $t9, 4($t6)
-    sw $t4, 8($t6)
-    sw $zero, 12($t6)
+jal draw_block_4x4
 
-    # (1,0)
-    addi $t0, $t8, 1
-    sw $t0, 0($t6)
-    sw $t9, 4($t6)
-    sw $t4, 8($t6)
-    sw $zero, 12($t6)
 
-    # (0,1)
-    sw $t8, 0($t6)
-    addi $t1, $t9, 1
-    sw $t1, 4($t6)
-    sw $t4, 8($t6)
-    sw $zero, 12($t6)
-
-    # (1,1)
-    sw $t0, 0($t6)
-    sw $t1, 4($t6)
-    sw $t4, 8($t6)
-    sw $zero, 12($t6)
-    # =====================================================
-    # DRAW NEW PLAYER (BLUE)
-    # =====================================================
-    la   $t0, px
-    lw   $t1, 0($t0)        # col
-    la   $t2, py
-    lw   $t3, 0($t2)        # row
-
-    # scale to screen coords
-    sll  $t1, $t1, 2
-    addi $t1, $t1, 100
-    sll  $t3, $t3, 2
-    addi $t3, $t3, 100
-
-    addi $t4, $0, 255       # blue
-
-    add  $t8, $t1, $0       # base x
-    add  $t9, $t3, $0       # base y
-
-  # (0,0)
-sw $t8, 0($t6)
-sw $t9, 4($t6)
-sw $t4, 8($t6)
-sw $zero, 12($t6)
-
-# (1,0)
-addi $t0, $t8, 1
-sw $t0, 0($t6)
-sw $t9, 4($t6)
-sw $t4, 8($t6)
-sw $zero, 12($t6)
-
-# (0,1)
-sw $t8, 0($t6)
-addi $t1, $t9, 1
-sw $t1, 4($t6)
-sw $t4, 8($t6)
-sw $zero, 12($t6)
-
-# (1,1)
-sw $t0, 0($t6)
-sw $t1, 4($t6)
-sw $t4, 8($t6)
-sw $zero, 12($t6)
 # =====================================================
-    # ERASE OLD PLAYER (GREEN FLOOR)
-    # =====================================================
-    la   $t0, ppx
-    lw   $t1, 0($t0)
-    la   $t2, ppy
-    lw   $t3, 0($t2)
+# ERASE OLD PLAYER (4x4 GREEN FLOOR)
+# =====================================================
 
-    # scale
-    sll  $t1, $t1, 2
-    addi $t1, $t1, 100
-    sll  $t3, $t3, 2
-    addi $t3, $t3, 100
+la   $t0, ppx
+lw   $t1, 0($t0)
+la   $t2, ppy
+lw   $t3, 0($t2)
 
-    lui  $t4, 0
-    ori  $t4, $t4, 21760    # green
+# scale
+sll  $t1, $t1, 2
+addi $t1, $t1, 100
+sll  $t3, $t3, 2
+addi $t3, $t3, 100
 
-    add  $t8, $t1, $0
-    add  $t9, $t3, $0
+lui  $t4, 0
+ori  $t4, $t4, 21760    # green
 
-    # (0,0)
-    sw $t8, 0($t6)
-    sw $t9, 4($t6)
-    sw $t4, 8($t6)
-    sw $zero, 12($t6)
-
-    # (1,0)
-    addi $t0, $t8, 1
-    sw $t0, 0($t6)
-    sw $t9, 4($t6)
-    sw $t4, 8($t6)
-    sw $zero, 12($t6)
-
-    # (0,1)
-    sw $t8, 0($t6)
-    addi $t1, $t9, 1
-    sw $t1, 4($t6)
-    sw $t4, 8($t6)
-    sw $zero, 12($t6)
-
-    # (1,1)
-    sw $t0, 0($t6)
-    sw $t1, 4($t6)
-    sw $t4, 8($t6)
-    sw $zero, 12($t6)
-
+jal draw_block_4x4
     j loop 
+
+
+draw_block_4x4:
+
+    add  $t8, $t1, $0      # base x
+    add  $t9, $t3, $0      # base y
+
+    addi $s4, $0, 0        # dy = 0
+
+y_loop:
+    addi $t7, $0, 4
+    beq  $s4, $t7, done_block
+
+    addi $s5, $0, 0        # dx = 0
+
+x_loop:
+    addi $t7, $0, 4
+    beq  $s5, $t7, next_row
+
+    add  $t0, $t8, $s5     # x = base_x + dx
+    add  $t1, $t9, $s4     # y = base_y + dy
+
+    sw   $t0, 0($t6)
+    sw   $t1, 4($t6)
+    sw   $t4, 8($t6)
+    sw   $zero, 12($t6)
+
+    addi $s5, $s5, 1
+    j    x_loop
+
+next_row:
+    addi $s4, $s4, 1
+    j    y_loop
+
+done_block:
+    jr $ra
 # ============================================================
 #  DRAWINIT - render full 10x10 grid
 #
