@@ -114,7 +114,7 @@
     <a name="appearance" val="logisim_evolution"/>
     <a name="circuit" val="Computer"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="simulationFrequency" val="64.0"/>
+    <a name="simulationFrequency" val="2048000.0"/>
     <comp lib="0" loc="(1010,610)" name="Clock">
       <a name="appearance" val="classic"/>
     </comp>
@@ -123,6 +123,16 @@
       <a name="facing" val="north"/>
     </comp>
     <comp lib="0" loc="(1040,1350)" name="Probe">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="west"/>
+      <a name="radix" val="10signed"/>
+    </comp>
+    <comp lib="0" loc="(1320,1000)" name="Probe">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="west"/>
+      <a name="radix" val="10signed"/>
+    </comp>
+    <comp lib="0" loc="(1320,1020)" name="Probe">
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="radix" val="10signed"/>
@@ -203,10 +213,15 @@
     <comp loc="(870,480)" name="MemoryController"/>
     <comp loc="(870,650)" name="CPU"/>
     <comp loc="(880,890)" name="KeyboardController"/>
+    <wire from="(1000,1000)" to="(1040,1000)"/>
+    <wire from="(1000,960)" to="(1000,1000)"/>
+    <wire from="(1000,960)" to="(1010,960)"/>
     <wire from="(1010,480)" to="(1010,600)"/>
     <wire from="(1010,480)" to="(1260,480)"/>
     <wire from="(1010,600)" to="(1020,600)"/>
     <wire from="(1010,610)" to="(1020,610)"/>
+    <wire from="(1010,950)" to="(1010,960)"/>
+    <wire from="(1010,950)" to="(1030,950)"/>
     <wire from="(1020,1300)" to="(1020,1310)"/>
     <wire from="(1020,1300)" to="(1110,1300)"/>
     <wire from="(1020,1320)" to="(1040,1320)"/>
@@ -217,6 +232,8 @@
     <wire from="(1040,1320)" to="(1040,1350)"/>
     <wire from="(1040,1320)" to="(1110,1320)"/>
     <wire from="(1040,950)" to="(1040,960)"/>
+    <wire from="(1040,970)" to="(1040,1000)"/>
+    <wire from="(1040,970)" to="(1290,970)"/>
     <wire from="(1050,1010)" to="(1280,1010)"/>
     <wire from="(1050,950)" to="(1050,1010)"/>
     <wire from="(1070,1000)" to="(1250,1000)"/>
@@ -229,11 +246,15 @@
     <wire from="(1240,1050)" to="(1260,1050)"/>
     <wire from="(1240,1070)" to="(1270,1070)"/>
     <wire from="(1240,1090)" to="(1280,1090)"/>
+    <wire from="(1240,1110)" to="(1290,1110)"/>
     <wire from="(1240,370)" to="(1260,370)"/>
     <wire from="(1240,390)" to="(1280,390)"/>
     <wire from="(1250,1000)" to="(1250,1030)"/>
+    <wire from="(1250,1000)" to="(1320,1000)"/>
+    <wire from="(1260,1020)" to="(1260,1050)"/>
+    <wire from="(1260,1020)" to="(1320,1020)"/>
     <wire from="(1260,370)" to="(1260,480)"/>
-    <wire from="(1260,990)" to="(1260,1050)"/>
+    <wire from="(1260,990)" to="(1260,1020)"/>
     <wire from="(1270,1440)" to="(1300,1440)"/>
     <wire from="(1270,980)" to="(1270,1070)"/>
     <wire from="(1280,1010)" to="(1280,1090)"/>
@@ -242,6 +263,7 @@
     <wire from="(1290,1610)" to="(1390,1610)"/>
     <wire from="(1290,1630)" to="(1310,1630)"/>
     <wire from="(1290,1650)" to="(1370,1650)"/>
+    <wire from="(1290,970)" to="(1290,1110)"/>
     <wire from="(1300,1440)" to="(1300,1450)"/>
     <wire from="(1300,1450)" to="(1360,1450)"/>
     <wire from="(1310,1630)" to="(1310,1670)"/>
@@ -552,17 +574,35 @@
       <a name="contents">addr/data: 24 32
 201b0000 105b000d 201b0001 105b0011 201b0005 105b0027 201b0009 105b003d
 201b000a 105b0042 201b000b 105b0041 201b000c 105b0043 3400008 3c1d03ff
-201b0000 3c1affff 375af004 af5b0000 800005c 10800012 23bdffd8 3a01020
+201b01a0 3c1a03ff 375af000 af5b0000 800005c 10800012 23bdffd8 3a01020
 201b000a 9b001a d810 2012 237b0030 ac5b0000 20420004 1480fff8
 3c1bffff 377bf000 2042fffc 8c440000 af640000 145dfffc 23bd0028 3400008
 3c1bffff 377bf000 20020030 af620000 3400008 20020000 3c1bffff 377bf010
 8f7b0000 1360fffc 3c1bffff 377bf014 8f7b0000 20070030 367382a 14e0000c
 2007003a 367382a 10e00009 237bffd0 2007000a 470018 1012 5b1020
-3c1bffff 377bf010 af600000 800002e 3400008 3c1bffff 377bf004 8f620000
+3c1bffff 377bf010 af600000 800002e 3400008 3c1b03ff 377bf000 8f620000
 441020 af620000 441022 3400008 800004c 3c1bffff 377bf000 af640000
 3400008 3c1bffff 377bf010 8f7b0000 1360fffc 3c1bffff 377bf014 8f620000
-3c1bffff 377bf010 af600000 3400008 20020005 d00c 28020 2002000c
-d00c 20020005 d00c 2022020 20020001 d00c
+3c1bffff 377bf010 af600000 3400008 c0000be 800005e 2002000c d00c
+25020 20080190 8d100000 20080194 8d110000 109020 119820 200b0077
+114b0007 200b0073 114b0007 200b0061 114b0007 200b0064 114b0007 800005e
+2273ffff 8000077 22730001 8000077 2252ffff 8000077 22520001 240782a
+15e0ffe5 2008000a 248782a 11e0ffe2 260782a 15e0ffe0 268782a 11e0ffde
+1348c0 137840 12f4820 1324820 20080000 94880 1094020 8d090000
+1120ffd5 20080190 20090198 8d0a0000 ad2a0000 ad120000 20080194 2009019c
+8d0a0000 ad2a0000 ad130000 3c0effff 35cef020 20080190 8d090000 200a0194
+8d4b0000 94880 21290064 b5880 216b0064 200c00ff c0000ab 20080198
+8d090000 200a019c 8d4b0000 94880 21290064 b5880 216b0064 3c0c0000
+358c5500 c0000ab 800005e 120c020 160c820 20140000 200f0004 128f000d
+20150000 200f0004 12af0008 3154020 3344820 adc80000 adc90004 adcc0008
+adc0000c 22b50001 80000b1 22940001 80000ae 3e00008 1fb020 3c0effff
+35cef020 200c0190 8d8c0000 200d0194 8dad0000 20080000 200f000a 110f002c
+20090000 200f000a 112f0027 3c040000 34845500 152c0003 150d0002 200400ff
+80000dc 850c0 85840 14b5020 1495020 200b0000 a5080 16a5820
+8d6a0000 15400002 3c0400aa 3484aaaa 95080 214a0064 85880 216b0064
+20150000 200f0004 12af000d 20140000 200f0004 128f0008 1547820 adcf0000
+1757820 adcf0004 adc40008 adc0000c 22940001 80000e4 22b50001 80000e1
+21290001 80000c9 21080001 80000c6 16f820 3e00008
 </a>
       <a name="dataWidth" val="32"/>
       <a name="label" val="MemROM"/>
@@ -1142,6 +1182,12 @@ d00c 20020005 d00c 2022020 20020001 d00c
       <a name="label" val="RGBWrite"/>
       <a name="type" val="output"/>
     </comp>
+    <comp lib="0" loc="(1250,1180)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="resetScreen"/>
+      <a name="type" val="output"/>
+    </comp>
     <comp lib="0" loc="(270,650)" name="Pin">
       <a name="appearance" val="NewPins"/>
       <a name="label" val="AddressFromBus"/>
@@ -1172,6 +1218,10 @@ d00c 20020005 d00c 2022020 20020001 d00c
       <a name="value" val="0xfffff02c"/>
       <a name="width" val="32"/>
     </comp>
+    <comp lib="0" loc="(640,1210)" name="Constant">
+      <a name="value" val="0xfffff050"/>
+      <a name="width" val="32"/>
+    </comp>
     <comp lib="0" loc="(640,640)" name="Constant">
       <a name="value" val="0xfffff020"/>
       <a name="width" val="32"/>
@@ -1188,7 +1238,9 @@ d00c 20020005 d00c 2022020 20020001 d00c
       <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
     </comp>
+    <comp lib="1" loc="(770,1160)" name="NOT Gate"/>
     <comp lib="1" loc="(840,1060)" name="AND Gate"/>
+    <comp lib="1" loc="(840,1180)" name="AND Gate"/>
     <comp lib="1" loc="(840,580)" name="AND Gate"/>
     <comp lib="1" loc="(840,750)" name="AND Gate"/>
     <comp lib="1" loc="(840,930)" name="AND Gate"/>
@@ -1197,6 +1249,10 @@ d00c 20020005 d00c 2022020 20020001 d00c
       <a name="width" val="32"/>
     </comp>
     <comp lib="3" loc="(700,1080)" name="Comparator">
+      <a name="mode" val="unsigned"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="3" loc="(700,1200)" name="Comparator">
       <a name="mode" val="unsigned"/>
       <a name="width" val="32"/>
     </comp>
@@ -1229,7 +1285,9 @@ d00c 20020005 d00c 2022020 20020001 d00c
     <wire from="(310,800)" to="(340,800)"/>
     <wire from="(370,690)" to="(870,690)"/>
     <wire from="(380,800)" to="(890,800)"/>
+    <wire from="(550,1070)" to="(550,1190)"/>
     <wire from="(550,1070)" to="(660,1070)"/>
+    <wire from="(550,1190)" to="(660,1190)"/>
     <wire from="(550,620)" to="(550,650)"/>
     <wire from="(550,620)" to="(650,620)"/>
     <wire from="(550,650)" to="(550,760)"/>
@@ -1238,13 +1296,20 @@ d00c 20020005 d00c 2022020 20020001 d00c
     <wire from="(550,940)" to="(550,1070)"/>
     <wire from="(550,940)" to="(660,940)"/>
     <wire from="(640,1090)" to="(660,1090)"/>
+    <wire from="(640,1210)" to="(660,1210)"/>
     <wire from="(640,640)" to="(650,640)"/>
     <wire from="(650,780)" to="(660,780)"/>
     <wire from="(650,960)" to="(660,960)"/>
     <wire from="(690,630)" to="(790,630)"/>
     <wire from="(700,1080)" to="(790,1080)"/>
+    <wire from="(700,1200)" to="(790,1200)"/>
     <wire from="(700,770)" to="(790,770)"/>
     <wire from="(700,950)" to="(790,950)"/>
+    <wire from="(730,1110)" to="(730,1160)"/>
+    <wire from="(730,1110)" to="(780,1110)"/>
+    <wire from="(730,1160)" to="(740,1160)"/>
+    <wire from="(770,1160)" to="(790,1160)"/>
+    <wire from="(780,1040)" to="(780,1110)"/>
     <wire from="(780,1040)" to="(790,1040)"/>
     <wire from="(780,560)" to="(780,730)"/>
     <wire from="(780,560)" to="(790,560)"/>
@@ -1254,6 +1319,7 @@ d00c 20020005 d00c 2022020 20020001 d00c
     <wire from="(780,910)" to="(790,910)"/>
     <wire from="(790,600)" to="(790,630)"/>
     <wire from="(840,1060)" to="(1250,1060)"/>
+    <wire from="(840,1180)" to="(1250,1180)"/>
     <wire from="(840,580)" to="(890,580)"/>
     <wire from="(840,750)" to="(890,750)"/>
     <wire from="(840,930)" to="(890,930)"/>
