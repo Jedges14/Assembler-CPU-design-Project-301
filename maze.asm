@@ -62,15 +62,25 @@ try:
     beq $t1,$0,loop
 
     #get old pos
-    lw $a1, px
-    lw $a2, py
+    la  $t0,px
+    lw  $a1,0($t0)
+    la  $t0,py
+    lw  $a2,0($t0)
     
-    sw $s2,px
-    sw $s3,py
+    la  $t0,px
+    sw  $s2,0($t0)
+    la  $t0,py
+    sw  $s3,0($t0)
+
 
     #draw new player and erase old
+    addi $sp,$sp,-4
+    sw   $ra,0($sp)
     jal erase_old
     jal draw_new
+    lw  $ra,0($sp)
+
+    addi $sp,$sp,4
 
     j loop
 
