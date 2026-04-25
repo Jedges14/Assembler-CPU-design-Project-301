@@ -17,8 +17,8 @@ loop:
 
     la $s0, px
     la $s1, py
-    lw  $s2, 0($s0)    
-    lw  $s3, 0($s1)
+    lw $s2,0($s0)
+    lw $s3,0($s1)
 
     addi $t3,$0,119
     beq $t2,$t3,up
@@ -93,28 +93,13 @@ erase_old:
     ori $a0,$a0,21760
 
     # look up maze[$a2*5 + $a1]
-    sll $t2,$a2,2
-    add $t2,$t2,$a2
-    add $t2,$t2,$a1
-    la  $t3,maze
-    sll $t2,$t2,2
-    add $t3,$t3,$t2
-    lw  $t2,0($t3)
-    beq $t2,$0,erase_paint   # wall=0 → keep floor colour
-
-    # wall colour: 0xAAAAAA
-    lui $a0,170
-    ori $a0,$a0,43690
-
-erase_paint:
-    # pixel x-base = $a1*4 + 100
     sll $t2,$a1,2
     addi $t2,$t2,100
-    # pixel y-base = $a2*4 + 100
     sll $t3,$a2,2
     addi $t3,$t3,100
-
+ 
     addi $t8,$0,0
+
 erase_py_loop:
     addi $t9,$0,4
     beq $t8,$t9,erase_done
@@ -128,6 +113,7 @@ erase_px_loop:
     add $s5,$t3,$t8
     sw  $s5,4($t6)
     sw  $a0,8($t6)
+    sw  $zero,12($t6)
 
     addi $s4,$s4,1
     j erase_px_loop
@@ -173,7 +159,7 @@ new_px_loop:
     add $s5,$t3,$t8
     sw  $s5,4($t6)
     sw  $a0,8($t6)
-
+    sw  $zero,12($t6)
 
     addi $s4,$s4,1
     j new_px_loop
@@ -221,7 +207,7 @@ chk_floor:
     sll $t2,$t2,2
     add $t3,$t3,$t2
     lw  $t2,0($t3)
-    beq $t2,$0,draw_cell
+    bne $t2,$0,draw_cell
 
     # li $a0,0xAAAAAA (too big)
     lui $a0,170
@@ -249,6 +235,7 @@ px_loop:
     sw  $s5,4($t6)
 
     sw  $a0,8($t6)
+    sw  $zero,12($t6)
 
     addi $s4,$s4,1
     j px_loop
