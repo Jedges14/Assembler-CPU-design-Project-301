@@ -170,8 +170,8 @@ update_player:
     ori $t6, $t6, 61480
 
     # erase old tile (floor)
-    move $t0, $a1
-    move $t1, $a0
+    add $t0, $0, $a1
+    add $t1, $0,$a0
 
     # compute index
     sll $t2, $t0, 2
@@ -197,8 +197,8 @@ draw_old:
     sw $a0, 0($t6)
 
     # draw new player
-    move $t0, $a3
-    move $t1, $a2
+    add $t0, $0, $a3
+    add $t1,$0, $a2
 
     addi $a0, $0, 255
     sw $a0, 0($t6)
