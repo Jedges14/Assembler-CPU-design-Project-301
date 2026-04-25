@@ -17,8 +17,8 @@ loop:
 
     la $s0, px
     la $s1, py
-    add $s2,$0,$s0
-    add $s3,$0,$s1
+    lw  $s2, 0($s0)    
+    lw  $s3, 0($s1)
 
     addi $t3,$0,119
     beq $t2,$t3,up
@@ -86,7 +86,7 @@ try:
 
 erase_old:
     lui $t6,65535
-    ori $t6,$t6,61480
+    ori $t6,$t6,61472
 
     # default colour: floor (0x005500)
     lui $a0,0
@@ -128,7 +128,6 @@ erase_px_loop:
     add $s5,$t3,$t8
     sw  $s5,4($t6)
     sw  $a0,8($t6)
-    sw  $zero,12($t6)
 
     addi $s4,$s4,1
     j erase_px_loop
@@ -144,7 +143,7 @@ erase_done:
 #draw the new player postion
 draw_new:
     lui $t6,65535
-    ori $t6,$t6,61480
+    ori $t6,$t6,61472
 
     la  $t3, px
     lw  $t4, 0($t3)
@@ -174,7 +173,7 @@ new_px_loop:
     add $s5,$t3,$t8
     sw  $s5,4($t6)
     sw  $a0,8($t6)
-    sw  $zero,12($t6)
+
 
     addi $s4,$s4,1
     j new_px_loop
@@ -187,7 +186,7 @@ new_done:
     jr $ra
 draw:
     lui $t6,65535
-    ori $t6,$t6,61480
+    ori $t6,$t6,61472
 
     la  $t3, px
     lw  $t4, 0($t3)
@@ -250,7 +249,6 @@ px_loop:
     sw  $s5,4($t6)
 
     sw  $a0,8($t6)
-    sw  $zero,12($t6)
 
     addi $s4,$s4,1
     j px_loop
