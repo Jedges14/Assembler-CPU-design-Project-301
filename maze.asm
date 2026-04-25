@@ -146,8 +146,10 @@ draw_new:
     lui $t6,65535
     ori $t6,$t6,61480
 
-    lw  $t4,px
-    lw  $t5,py
+    la  $t3, px
+    lw  $t4, 0($t3)
+    la  $t3, py
+    lw  $t5, 0($t3)
 
     # player colour
     addi $a0,$0,255       # 0x0000FF
@@ -187,8 +189,10 @@ draw:
     lui $t6,65535
     ori $t6,$t6,61480
 
-    lw $t4,px
-    lw $t5,py
+    la  $t3, px
+    lw  $t4, 0($t3)
+    la  $t3, py
+    lw  $t5, 0($t3)
 
     addi $t0,$0,0
 row:
