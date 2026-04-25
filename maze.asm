@@ -98,7 +98,7 @@ draw:
     lui $t0, 0
     ori $t0, $t0, drawn
     lw  $t1, 0($t0)
-    bne $t1, $0, draw_player_only
+    bne $t1, $0, done
 
     # mark drawn = 1
     addi $t1, $0, 1
@@ -166,28 +166,22 @@ done:
 
 
 update_player:
-    lui $t6, 65535
+     lui $t6, 65535
     ori $t6, $t6, 61480
 
-    # erase old tile (floor)
-    add $t0, $0, $a1
-    add $t1, $0,$a0
+    add $t0, $0, $a1   # old y
+    add $t1, $0, $a0   # old x
 
-    # compute index
-    sll $t2, $t0, 2
-    add $t2, $t2, $t0
-    add $t2, $t2, $t1
+    addi $a0, $0, 0     # floor color
+    sw $a0, 0($t6)
 
-    lui $t3, 0
-    ori $t3, $t3, maze
-    sll $t2, $t2, 2
-    add $t3, $t3, $t2
-    lw  $t2, 0($t3)
+    add $t0, $0, $a3   # new y
+    add $t1, $0, $a2   # new x
 
-    beq $t2, $0, old_floor
-    lui $a0, 0
-    ori $a0, $a0, 21760
-    j draw_old
+    addi $a0, $0, 255   # player color
+    sw $a0, 0($t6)
+
+    jr $ra
 
 old_floor:
     lui $a0, 0
